@@ -22,17 +22,22 @@ class _CategoryPageState extends State<CategoryPage> {
     'Ethnic'
   ];
 
+  var categoriesUrl = [
+    '',
+    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/093166cd-daa6-4453-9f2c-2aa6995cdcf11556177627960-Categories-Final-Women.jpg',
+    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/50b4bece-e3b3-4a91-80ee-adfa02eff4e61556177627967-Categories-Final-Men.jpg',
+    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/dd0eeeca-cc1c-41c7-8dc7-ddd12e3d1d141556177627974-Categories-Final-kids.jpg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: categories.length,
+        itemCount: categoriesUrl.length,
         itemBuilder: (context, pos) {
           return pos == 0
               ? SearchBar()
               : CategoryBanner(
-                  heading: categories[pos],
-                  color: Colors.orangeAccent,
-                );
+                  heading: categories[pos], imageUrl: categoriesUrl[pos]);
         });
   }
 }
@@ -40,27 +45,23 @@ class _CategoryPageState extends State<CategoryPage> {
 class CategoryBanner extends StatelessWidget {
   final String heading;
   final Color color;
+  final String imageUrl;
 
-  CategoryBanner({this.heading, this.color});
+  CategoryBanner({this.heading, this.color, this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-//          color: color,
-          borderRadius: BorderRadius.circular(4),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [color, color.withOpacity(.7)],
-          )),
-      margin: EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 4),
-      child: Center(
-        child: Text(
-          heading,
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'Raleway', fontSize: 22),
-        ),
+
+      margin: EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
+      child: Stack(
+        children: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Container(color: Colors.orangeAccent,),
+         ),
+          Image.network(imageUrl)
+        ],
       ),
       height: 130,
     );

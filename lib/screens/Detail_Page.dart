@@ -9,10 +9,8 @@ class ProductDetailPage extends StatefulWidget {
 
   ProductDetailPage({@required this.product});
 
-
   @override
-  _ProductDetailPageState createState() =>
-      _ProductDetailPageState();
+  _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
@@ -21,7 +19,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int currentColorIndex = 0;
   var sizeNumList = [8, 9, 10, 11, 12];
   var colorList = [Colors.grey, Colors.redAccent, Colors.black, Colors.orange];
-
+  bool isFavourite = false;
+  bool isAddedToCart = false;
 
   @override
   void initState() {
@@ -47,7 +46,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Icons.arrow_back,
                 color: Colors.black,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           title: Text(
             widget.product.name,
             style: TextStyle(
@@ -57,9 +58,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.favorite_border),
-              color: Colors.black87,
-              onPressed: () {},
+              icon: Icon(isFavourite ? Icons.favorite : Icons.favorite_border),
+              color: Colors.redAccent,
+              onPressed: () {
+                setState(() {
+                  isFavourite = !isFavourite;
+                });
+              },
             )
           ],
           centerTitle: true,
@@ -135,7 +140,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Text(
                           widget.product.price,
                           style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w500),
+                              fontSize: 20),
                         ),
                       )),
                   Container(
@@ -243,19 +248,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   )
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(left: 4, right: 4, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                decoration: BoxDecoration(
-                  color: Colors.orangeAccent,
-                  borderRadius: BorderRadius.circular(18),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isAddedToCart = !isAddedToCart;
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 4, right: 4, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    height: 55,
+                    decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Center(
+                        child: Text(
+                      isAddedToCart ? "Remove from cart" : "Add to cart",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    )),
+                  ),
                 ),
-                child: Center(
-                    child: Text(
-                  "Add to cart",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                )),
               )
             ],
           ),

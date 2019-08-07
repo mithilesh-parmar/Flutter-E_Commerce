@@ -21,16 +21,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new TopAppBar(),
-              Padding(
-                padding: EdgeInsets.only(left: 25),
-                child: Text(
-                  'Shop your heart out',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontFamily: 'Raleway',
-                  ),
-                ),
+              TopAppBar(
+                onCartIconPress: (){
+
+                },
+                onProfileIconPress: (){},
+                profileImage: 'profile.png',
+
               ),
               SizedBox(
                 height: 22,
@@ -49,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20,
               ),
-              new HeaderWidget(
+               HeaderWidget(
                 iconText: "More",
                 heading: "Trending",
                 icon: Icons.expand_more,
@@ -74,6 +71,33 @@ class _HomePageState extends State<HomePage> {
                   itemCount: productList.length,
                 ),
               ),
+
+              HeaderWidget(
+                iconText: "More",
+                heading: "Best Sellers",
+                icon: Icons.expand_more,
+                onPressed: () {},
+              ),
+              Container(
+                height: 240,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    Product item = mayLikeProductList[index];
+                    return ProductCard(
+                        product: item,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailPage(product: item)));
+                        });
+                  },
+                  scrollDirection: Axis.horizontal,
+                  itemCount: mayLikeProductList.length,
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Divider(
@@ -82,30 +106,31 @@ class _HomePageState extends State<HomePage> {
                   height: 24,
                 ),
               ),
-              HeaderWidget(
-                iconText: "Filter",
-                heading: "You might like",
-                icon: Icons.tune,
-              ),
-              GridView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: mayLikeProductList.length,
-                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (BuildContext context, int pos) {
-                  Product item = mayLikeProductList[pos];
-                  return ProductCard(
-                      product: item,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ProductDetailPage(product: item)));
-                      });
-                },
-              )
+//              HeaderWidget(
+//                iconText: "Filter",
+//                heading: "You might like",
+//                icon: Icons.tune,
+//              ),
+//              GridView.builder(
+//                physics: NeverScrollableScrollPhysics(),
+//                scrollDirection: Axis.vertical,
+//                shrinkWrap: true,
+//                itemCount: mayLikeProductList.length,
+//                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+//                    crossAxisCount: 2),
+//                itemBuilder: (BuildContext context, int pos) {
+//                  Product item = mayLikeProductList[pos];
+//                  return ProductCard(
+//                      product: item,
+//                      onPressed: () {
+//                        Navigator.push(
+//                            context,
+//                            MaterialPageRoute(
+//                                builder: (context) =>
+//                                    ProductDetailPage(product: item)));
+//                      });
+//                },
+//              )
             ]),
       ),
     );

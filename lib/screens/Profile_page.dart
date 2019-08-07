@@ -12,7 +12,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 14),
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
@@ -242,7 +241,7 @@ class ProfileTopBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
-          colors: [Colors.orangeAccent, Colors.amberAccent],
+          colors: [Colors.blueAccent, Colors.lightBlueAccent],
         ),
         color: Colors.deepOrangeAccent.shade100,
       ),
@@ -252,10 +251,16 @@ class ProfileTopBanner extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-              radius: 55,
-              child: Placeholder(),
+            child: Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 5), color: Colors.grey, blurRadius: 10)
+              ]),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: 55,
+                backgroundImage: AssetImage('profile.png'),
+              ),
             ),
           ),
           Padding(
