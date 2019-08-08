@@ -38,6 +38,8 @@ class _MyAppState extends State<MyApp> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -48,6 +50,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xFFf3f6fb),
       body: _selectedScreen,
       bottomNavigationBar: BottomNavigationBar(

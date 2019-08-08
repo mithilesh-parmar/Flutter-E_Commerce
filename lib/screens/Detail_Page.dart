@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lipsum/lipsum.dart' as lipsum;
 import 'package:e_commerce/model/Product.dart';
+import 'package:e_commerce/widgets/VariableList.dart';
 
 class ProductDetailPage extends StatefulWidget {
   static String id = "ProductDetailPage";
 
-  Product product;
+  final Product product;
 
   ProductDetailPage({@required this.product});
 
@@ -15,8 +16,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   bool isExpanded = false;
-  int currentSizeIndex = 0;
-  int currentColorIndex = 0;
+
   var sizeNumList = [8, 9, 10, 11, 12];
   var colorList = [Colors.grey, Colors.redAccent, Colors.black, Colors.orange];
   bool isFavourite = false;
@@ -139,8 +139,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           widget.product.price,
-                          style: TextStyle(
-                              fontSize: 20),
+                          style: TextStyle(fontSize: 20),
                         ),
                       )),
                   Container(
@@ -184,64 +183,39 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           SizedBox(
                             height: 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, right: 8),
-                            child: Text(
-                              "Size",
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 16,
-                                fontFamily: 'Raleway-bold',
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: sizeNumList.length,
-                                itemBuilder: (context, pos) {
-                                  int item = sizeNumList[pos];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        currentSizeIndex = pos;
-                                      });
-                                    },
-                                    child: sizeItem(item.toString(),
-                                        currentSizeIndex == pos, context),
-                                  );
-                                }),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, right: 8),
-                            child: Text(
-                              "Color",
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 16,
-                                fontFamily: 'Raleway-bold',
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: colorList.length,
-                                itemBuilder: (context, pos) {
-                                  Color item = colorList[pos];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        currentColorIndex = pos;
-                                      });
-                                    },
-                                    child: colorItem(item,
-                                        currentColorIndex == pos, context),
-                                  );
-                                }),
-                          ),
+
+//                          Padding(
+//                            padding: const EdgeInsets.only(top: 8.0, right: 8),
+//                            child: Text(
+//                              "Size",
+//                              style: TextStyle(
+//                                color: Colors.black87,
+//                                fontSize: 16,
+//                                fontFamily: 'Raleway-bold',
+//                              ),
+//                            ),
+//                          ),
+//                          Container(
+//                            height: 60,
+//                            child: ListView.builder(
+//                                scrollDirection: Axis.horizontal,
+//                                itemCount: sizeNumList.length,
+//                                itemBuilder: (context, pos) {
+//                                  int item = sizeNumList[pos];
+//                                  return GestureDetector(
+//                                    onTap: () {
+//                                      setState(() {
+//                                        currentSizeIndex = pos;
+//                                      });
+//                                    },
+//                                    child: new SizeItem(size: item.toString(), isSelected: currentSizeIndex == pos, context: context),
+//                                  );
+//                                }),
+//                          ),
+//
+                        VariableList(title: 'Size',variantsList: sizeNumList, type: 'SIZE'),
+                        VariableList(title: 'Color',variantsList: colorList, type: 'COLOR')
+
                         ],
                       ),
                     ),
@@ -275,50 +249,5 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
         ));
-  }
-
-  Widget colorItem(Color color, bool isSelected, BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.only(top: 8, right: 8, bottom: 8),
-      width: 50,
-      decoration: BoxDecoration(
-          border: isSelected
-              ? Border.all(color: Colors.black.withOpacity(.4), width: 3)
-              : null,
-          color: color,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                color: isSelected ? Colors.black.withOpacity(.4) : Colors.white,
-                offset: Offset(0, 3),
-                blurRadius: 10)
-          ]),
-    );
-  }
-
-  Widget sizeItem(String size, bool isSelected, BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.only(top: 8, right: 8, bottom: 8),
-      width: 50,
-      decoration: BoxDecoration(
-          color: isSelected ? Colors.orangeAccent : Colors.white,
-          borderRadius: BorderRadius.circular(100),
-          boxShadow: [
-            BoxShadow(
-                color: isSelected ? Colors.black.withOpacity(.4) : Colors.white,
-                offset: Offset(0, 0),
-                blurRadius: 10)
-          ]),
-      child: Center(
-        child: Text(
-          size,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
 import 'package:e_commerce/widgets/Appbar.dart';
+import 'package:e_commerce/screens/ProductList_Page.dart';
 
 class CategoryPage extends StatefulWidget {
   static String id = "CategoryPage";
@@ -51,19 +52,20 @@ class CategoryBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      margin: EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ProductListPage())),
       child: Stack(
         children: <Widget>[
-         Padding(
-           padding: const EdgeInsets.all(8.0),
-           child: Container(color: Colors.orangeAccent,),
-         ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              color: Colors.orangeAccent,
+            ),
+          ),
           Image.network(imageUrl)
         ],
       ),
-      height: 130,
     );
   }
 }
