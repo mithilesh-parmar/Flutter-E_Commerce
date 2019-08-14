@@ -93,12 +93,7 @@ class ProductDisplayCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        margin: EdgeInsets.all(2),
-        constraints: BoxConstraints(
-            minWidth: 180,
-            maxWidth: MediaQuery.of(context).size.width,
-            minHeight: 180,
-            maxHeight: 260),
+        margin: EdgeInsets.all(1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -109,7 +104,11 @@ class ProductDisplayCard extends StatelessWidget {
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     color: Colors.greenAccent.withOpacity(.7),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(6),
+                        topRight: Radius.circular(6),
+                        bottomRight: Radius.circular(2),
+                        bottomLeft: Radius.circular(2)),
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(product.images[0].src))),
@@ -129,7 +128,7 @@ class ProductDisplayCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 'Rs. ${product.price}',
-                style: TextStyle(color: Colors.black54),
+
               ),
             )
           ],

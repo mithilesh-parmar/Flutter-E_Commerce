@@ -14,10 +14,10 @@ class OffersBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      aspectRatio: 16 / 9,
+
       autoPlay: true,
       pauseAutoPlayOnTouch: Duration(seconds: 1),
-      viewportFraction: 0.9,
+      viewportFraction: 0.94,
       enlargeCenterPage: true,
       items: imageList.map((url) {
         return Builder(
@@ -27,7 +27,7 @@ class OffersBanner extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 4.0),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.fill, image: NetworkImage(url))),
+                      fit: BoxFit.cover, image: NetworkImage(url))),
             );
           },
         );

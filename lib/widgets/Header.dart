@@ -9,23 +9,22 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(left: 25, right: 20, bottom: 8),
-        child: Row(
-          children: <Widget>[
-            Text(
-              heading,
-              style: TextStyle(fontSize: 28, fontFamily: 'Raleway'),
-            ),
-            Spacer(),
-            FlatButton.icon(
-                onPressed: onPressed,
-                icon: Icon(icon),
-                label: Text(
-                  iconText,
-                  style: TextStyle(fontFamily: 'Raleway'),
-                ))
-          ],
-        ));
+    return Row(
+      children: <Widget>[
+        Text(
+          heading,
+          style: TextStyle(
+              fontSize: 28, fontWeight: FontWeight.w600),
+        ),
+        Spacer(),
+        FlatButton.icon(
+            onPressed: onPressed,
+            icon: Icon(icon),
+            label: Text(
+              iconText,
+              style: TextStyle(fontFamily: 'Raleway'),
+            ))
+      ],
+    );
   }
 }
