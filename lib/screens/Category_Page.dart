@@ -1,7 +1,10 @@
+import 'package:e_commerce/util/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
 import 'package:e_commerce/widgets/Appbar.dart';
 import 'package:e_commerce/screens/ProductList_Page.dart';
+import 'package:e_commerce/screens/Detail_Page.dart';
+import 'package:e_commerce/model/woocommerce_category.dart' as ProductCategory;
 
 class CategoryPage extends StatefulWidget {
   static String id = "CategoryPage";
@@ -11,59 +14,77 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  var categories = [
-    "",
-    'Men',
-    "Women",
-    'Boys',
-    'Girls',
-    'Unisex',
-    'Sports',
-    'InnerWear',
-    'Ethnic'
-  ];
+  Repository repo;
 
-  var categoriesUrl = [
-    '',
-    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/093166cd-daa6-4453-9f2c-2aa6995cdcf11556177627960-Categories-Final-Women.jpg',
-    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/50b4bece-e3b3-4a91-80ee-adfa02eff4e61556177627967-Categories-Final-Men.jpg',
-    'https://assets.jassets.com/assets/images/retaillabs/2019/4/25/dd0eeeca-cc1c-41c7-8dc7-ddd12e3d1d141556177627974-Categories-Final-kids.jpg',
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    repo = Repository();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: categoriesUrl.length,
-        itemBuilder: (context, pos) {
-          return pos == 0
-              ? SearchBar()
-              : CategoryBanner(
-                  heading: categories[pos], imageUrl: categoriesUrl[pos]);
+    return FutureBuilder(
+        future: repo.getCategories(),
+        builder: (context, snapshot) {
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, pos) {
+                return CategoryBanner(snapshot.data[pos]);
+              });
         });
   }
 }
 
 class CategoryBanner extends StatelessWidget {
-  final String heading;
-  final Color color;
-  final String imageUrl;
+  final ProductCategory.Category _category;
 
-  CategoryBanner({this.heading, this.color, this.imageUrl});
+  CategoryBanner(this._category);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ProductListPage())),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductListPage(
+                      categoryName: _category.name,
+                      categoryId: _category.id,
+                    )));
+      },
       child: Stack(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              color: Colors.orangeAccent,
+          Container(
+            height: 180,
+            margin: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(_category.image.src))),
+          ),
+          Container(
+            height: 180,
+            margin: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Colors.black54]),
             ),
           ),
-          Image.network(imageUrl)
+          Container(
+            height: 180,
+            margin: EdgeInsets.all(4),
+            child: Center(
+                child: Text(
+              _category.name,
+              style: TextStyle(
+                  fontSize: 40, fontFamily: 'Raleway', color: Colors.white),
+            )),
+          )
         ],
       ),
     );

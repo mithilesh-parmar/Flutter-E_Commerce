@@ -6,7 +6,15 @@ import 'package:e_commerce/util/repo.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 
+
+//TODO add repo method to get products according to category
+
 class ProductListPage extends StatefulWidget {
+  final String categoryName;
+  final int categoryId;
+
+  ProductListPage({@required this.categoryName, @required this.categoryId});
+
   @override
   _ProductListPageState createState() => _ProductListPageState();
 }
@@ -37,7 +45,7 @@ class _ProductListPageState extends State<ProductListPage> {
               Navigator.pop(context);
             }),
         title: Text(
-          'Products',
+          widget.categoryName,
           style: TextStyle(
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w500,
@@ -48,27 +56,38 @@ class _ProductListPageState extends State<ProductListPage> {
       body: FutureBuilder(
           future: repo.getProducts(),
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              return GridView.builder(
-                  itemCount: snapshot.data.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: .75),
-                  itemBuilder: (context, pos) {
-                    Product product = snapshot.data[pos];
-                    return ProductDisplayCard(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetailPage(product: product)));
-                        },
-                        product: product);
-                  });
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                // TODO: Handle this case.
+                break;
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ConnectionState.active:
+                // TODO: Handle this case.
+                break;
+              case ConnectionState.done:
+                if (snapshot.hasError)
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                return GridView.builder(
+                    itemCount: snapshot.data.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: .75),
+                    itemBuilder: (context, pos) {
+                      Product product = snapshot.data[pos];
+                      return ProductDisplayCard(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailPage(product)));
+                          },
+                          product: product);
+                    });
             }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
           }),
     );
   }

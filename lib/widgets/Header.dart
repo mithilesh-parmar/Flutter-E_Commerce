@@ -14,7 +14,7 @@ class HeaderWidget extends StatelessWidget {
         Text(
           heading,
           style: TextStyle(
-              fontSize: 28, fontWeight: FontWeight.w600),
+              fontSize: 23, fontWeight: FontWeight.w600),
         ),
         Spacer(),
         FlatButton.icon(

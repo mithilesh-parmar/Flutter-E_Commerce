@@ -60,6 +60,7 @@ class _MyAppState extends State<MyApp> {
       statusBarColor: isDark ? Constants.darkPrimary : Constants.lightPrimary,
       statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     ));
+
   }
 
   @override

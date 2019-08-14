@@ -30,33 +30,33 @@ class Product {
 
   Product(
       {this.id,
-        this.name,
-        this.slug,
-        this.permalink,
-        this.type,
-        this.featured,
-        this.description,
-        this.shortDescription,
-        this.price,
-        this.regularPrice,
-        this.salePrice,
-        this.priceHtml,
-        this.onSale,
-        this.totalSale,
-        this.shippingRequired,
-        this.shippingClass,
-        this.shippingClassId,
-        this.avgRating,
-        this.ratingCount,
-        this.relatedIds,
-        this.upsellIds,
-        this.crossSellIds,
-        this.categories,
-        this.tags,
-        this.images,
-        this.attributes,
-        this.defaultAttributes,
-        this.stockStatus});
+      this.name,
+      this.slug,
+      this.permalink,
+      this.type,
+      this.featured,
+      this.description,
+      this.shortDescription,
+      this.price,
+      this.regularPrice,
+      this.salePrice,
+      this.priceHtml,
+      this.onSale,
+      this.totalSale,
+      this.shippingRequired,
+      this.shippingClass,
+      this.shippingClassId,
+      this.avgRating,
+      this.ratingCount,
+      this.relatedIds,
+      this.upsellIds,
+      this.crossSellIds,
+      this.categories,
+      this.tags,
+      this.images,
+      this.attributes,
+      this.defaultAttributes,
+      this.stockStatus});
 
   factory Product.fromJSON(Map<String, dynamic> parsedJson) {
     return new Product(
@@ -92,7 +92,9 @@ class Product {
       images: (parsedJson['images'] as List)
           .map((value) => Images.fromJSON(value))
           .toList(),
-      attributes: parsedJson['attributes'] as List,
+      attributes: (parsedJson['attributes'] as List)
+          .map((value) => Attributes.fromJSON(value))
+          .toList(),
       defaultAttributes: parsedJson['default_attributes'] as List,
     );
   }
@@ -175,20 +177,20 @@ class Attributes {
 
   Attributes(
       {this.id,
-        this.name,
-        this.position,
-        this.visible,
-        this.variation,
-        this.options});
+      this.name,
+      this.position,
+      this.visible,
+      this.variation,
+      this.options});
 
   factory Attributes.fromJSON(Map<String, dynamic> parsedJson) {
     return Attributes(
         id: parsedJson['id'],
-        name: parsedJson[''],
-        position: parsedJson[''],
-        visible: parsedJson[''],
-        variation: parsedJson[''],
-        options: parsedJson[''] as List);
+        name: parsedJson['name'],
+        position: parsedJson['position'],
+        visible: parsedJson['visible'],
+        variation: parsedJson['variation'],
+        options: parsedJson['options'] as List);
   }
 
   @override

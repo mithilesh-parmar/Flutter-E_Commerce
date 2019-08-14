@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/OffersBanner.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
@@ -7,6 +6,7 @@ import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 import 'package:e_commerce/widgets/Header.dart';
+import 'package:e_commerce/screens/Detail_Page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     repo = Repository();
+    repo.getCategories();
   }
 
   @override
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             child: Text(
               "What are you \nlooking for?",
               style: TextStyle(
-                fontSize: 35,
+                fontSize: 38,
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
               ),
@@ -97,8 +98,7 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ProductDetailPage(
-                                            product: product)));
+                                        builder: (context) => DetailPage(product)));
                               },
                               product: product,
                             );
