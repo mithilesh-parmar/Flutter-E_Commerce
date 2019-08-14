@@ -27,7 +27,7 @@ class OffersBanner extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 4.0),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(url))),
+                      fit: BoxFit.fill, image: NetworkImage(url))),
             );
           },
         );

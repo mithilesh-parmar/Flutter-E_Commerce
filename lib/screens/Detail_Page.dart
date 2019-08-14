@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lipsum/lipsum.dart' as lipsum;
-import 'package:e_commerce/model/Product.dart';
+import 'package:e_commerce/widgets/OffersBanner.dart';
+
+//import 'package:e_commerce/model/Product.dart';
 import 'package:e_commerce/widgets/VariableList.dart';
+import 'package:e_commerce/model/woocommerce_product.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   static String id = "ProductDetailPage";
@@ -21,12 +25,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   var colorList = [Colors.grey, Colors.redAccent, Colors.black, Colors.orange];
   bool isFavourite = false;
   bool isAddedToCart = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   void _expand() {
     setState(() {
@@ -54,6 +52,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             style: TextStyle(
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.w500,
+                fontSize: 16,
                 color: Colors.black),
           ),
           actions: <Widget>[
@@ -73,18 +72,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           child: Column(
             children: <Widget>[
               Container(
-                child: Hero(
-                  tag: widget.product.id,
-                  child: Container(
-                    height: 450,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        image: DecorationImage(
-                            image: NetworkImage(widget.product.imageUrl),
-                            fit: BoxFit.scaleDown)),
-                  ),
+                child: Container(
+                  height: 450,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              '${widget.product.images[0].src}'))),
                 ),
               ),
               Column(
@@ -125,7 +119,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               width: 6,
                             ),
                             Text(
-                              "(${widget.product.peopleRated} people)",
+                              "(3 people)",
                               style: TextStyle(fontSize: 16),
                             )
                           ],
@@ -156,11 +150,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           AnimatedCrossFade(
                               firstChild: Text(
                                 widget.product.description,
-                                maxLines: 2,
                                 style: TextStyle(color: Colors.black87),
                               ),
                               secondChild: Text(
-                                widget.product.summary,
+                                widget.product.shortDescription,
+                                maxLines: 2,
                                 style: TextStyle(color: Colors.black87),
                               ),
                               crossFadeState: isExpanded
@@ -213,9 +207,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 //                                }),
 //                          ),
 //
-                        VariableList(title: 'Size',variantsList: sizeNumList, type: 'SIZE'),
-                        VariableList(title: 'Color',variantsList: colorList, type: 'COLOR')
-
+                          VariableList(
+                              title: 'Size',
+                              variantsList: sizeNumList,
+                              type: 'SIZE'),
+                          VariableList(
+                              title: 'Color',
+                              variantsList: colorList,
+                              type: 'COLOR')
                         ],
                       ),
                     ),

@@ -10,7 +10,7 @@ class TopAppBar extends StatelessWidget {
       {this.onCartIconPress,
       this.onProfileIconPress,
       this.profileImage,
-      this.subtitle = "Explore"});
+      this.subtitle = "What do you want to shop for?"});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class TopAppBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              GestureDetector(
-                onTap: onProfileIconPress,
-                child: CircleAvatar(
-                  maxRadius: 22,
-                  backgroundImage: AssetImage(profileImage),
-                  backgroundColor: Colors.transparent,
-                ),
-              ),
+//              GestureDetector(
+//                onTap: onProfileIconPress,
+//                child: CircleAvatar(
+//                  maxRadius: 22,
+//                  backgroundImage: AssetImage(profileImage),
+//                  backgroundColor: Colors.transparent,
+//                ),
+//              ),
 //              Badge(
 //                badgeContent: Text(
 //                  '2',
@@ -39,15 +39,18 @@ class TopAppBar extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              subtitle,
-              style: TextStyle(
-                fontFamily: 'Raleway',
-                fontSize: 28,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 170,
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  fontFamily: 'Raleway',
+                  fontSize: 28,
+                ),
               ),
             ),
           ),

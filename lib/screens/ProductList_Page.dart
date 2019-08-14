@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
-import 'package:e_commerce/model/Product.dart';
+
+//import 'package:e_commerce/model/Product.dart';
+import 'package:e_commerce/util/repo.dart';
+import 'package:e_commerce/model/woocommerce_product.dart';
+import 'package:e_commerce/widgets/ProductCard.dart';
 
 class ProductListPage extends StatefulWidget {
   @override
@@ -8,6 +12,15 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
+  Repository repo;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    repo = Repository();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,69 +45,31 @@ class _ProductListPageState extends State<ProductListPage> {
         ),
         centerTitle: true,
       ),
-      body: GridView.builder(
-          itemCount: mayLikeProductList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: .6),
-          itemBuilder: (context, pos) {
-            Product product = mayLikeProductList[pos];
-            return ProductDisplayCard(product: product);
+      body: FutureBuilder(
+          future: repo.getProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              return GridView.builder(
+                  itemCount: snapshot.data.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: .75),
+                  itemBuilder: (context, pos) {
+                    Product product = snapshot.data[pos];
+                    return ProductDisplayCard(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailPage(product: product)));
+                        },
+                        product: product);
+                  });
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }),
-    );
-  }
-}
-
-class ProductDisplayCard extends StatelessWidget {
-  const ProductDisplayCard({
-    Key key,
-    @required this.product,
-  }) : super(key: key);
-
-  final Product product;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ProductDetailPage(product: product)));
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Hero(tag: product.id, child: Image.network(product.imageUrl)),
-            Row(
-              children: <Widget>[
-                Text(
-                  product.name,
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                  ),
-                ),
-                Spacer(),
-                InkWell(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.turned_in_not,
-                      color: Colors.black54,
-                    )),
-              ],
-            ),
-            Text(
-              product.summary,
-              style: TextStyle(fontFamily: 'Raleway', fontSize: 12),
-            ),
-            Text(
-              product.price,
-              style: TextStyle(),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

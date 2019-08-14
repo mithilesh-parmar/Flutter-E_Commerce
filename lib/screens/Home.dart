@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/Appbar.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
 import 'package:e_commerce/widgets/OffersBanner.dart';
-import 'package:e_commerce/model/Product.dart';
+
+//import 'package:e_commerce/model/Product.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 import 'package:e_commerce/widgets/Header.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
+import 'package:e_commerce/util/repo.dart';
+import 'package:e_commerce/model/woocommerce_product.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,21 +16,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Repository repo;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    repo = Repository();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SafeArea(
         child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TopAppBar(
-                onCartIconPress: (){
-
-                },
-                onProfileIconPress: (){},
+                onCartIconPress: () {},
+                onProfileIconPress: () {},
                 profileImage: 'profile.png',
-
               ),
               SizedBox(
                 height: 22,
@@ -46,57 +56,91 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20,
               ),
-               HeaderWidget(
+              HeaderWidget(
                 iconText: "More",
                 heading: "Trending",
                 icon: Icons.expand_more,
                 onPressed: () {},
               ),
               Container(
-                height: 240,
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    Product item = productList[index];
-                    return ProductCard(
-                        product: item,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetailPage(product: item)));
-                        });
-                  },
-                  scrollDirection: Axis.horizontal,
-                  itemCount: productList.length,
-                ),
+                constraints: BoxConstraints(minHeight: 180, maxHeight: 250),
+                margin: EdgeInsets.only(left: 8),
+                child: FutureBuilder(
+                    future: repo.getProducts(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          return Center(child: Text('Press Button To Start'));
+                        case ConnectionState.waiting:
+                          return Center(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        case ConnectionState.active:
+                          // TODO: Handle this case.
+                          break;
+                        case ConnectionState.done:
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              Product item = snapshot.data[index];
+                              return ProductDisplayCard(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailPage(
+                                                  product: item)));
+                                },
+                                product: item,
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data.length,
+                          );
+                      }
+                    }),
               ),
 
-              HeaderWidget(
-                iconText: "More",
-                heading: "Best Sellers",
-                icon: Icons.expand_more,
-                onPressed: () {},
-              ),
-              Container(
-                height: 240,
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    Product item = mayLikeProductList[index];
-                    return ProductCard(
-                        product: item,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductDetailPage(product: item)));
-                        });
-                  },
-                  scrollDirection: Axis.horizontal,
-                  itemCount: mayLikeProductList.length,
-                ),
-              ),
+//              HeaderWidget(
+//                iconText: "More",
+//                heading: "Best Sellers",
+//                icon: Icons.expand_more,
+//                onPressed: () {},
+//              ),
+//              Container(
+//                  height: 240,
+//                  child: FutureBuilder(
+//                      future: repo.getProducts(),
+//                      builder: (context, snapshot) {
+//                        if (snapshot.data != null) {
+//                          return ListView.builder(
+//                            itemBuilder: (context, index) {
+//                              Product item = snapshot.data[index];
+//                              return ProductCard(
+//                                  product: item,
+//                                  onPressed: () {
+//                                    Navigator.push(
+//                                        context,
+//                                        MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                ProductDetailPage(
+//                                                    product: item)));
+//                                  });
+//                            },
+//                            scrollDirection: Axis.horizontal,
+//                            itemCount: snapshot.data.length,
+//                          );
+//                        }
+//                        return Center(
+//                          child: CircularProgressIndicator(),
+//                        );
+//                      })),
 
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
