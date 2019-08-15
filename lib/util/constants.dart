@@ -29,6 +29,7 @@ class Constants {
 
   static ThemeData lightTheme = ThemeData(
     backgroundColor: lightBG,
+
     primaryColor: lightPrimary,
     accentColor:  lightAccent,
     cursorColor: lightAccent,
@@ -48,6 +49,7 @@ class Constants {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     backgroundColor: darkBG,
+    hintColor: darkBG,
     primaryColor: darkPrimary,
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,

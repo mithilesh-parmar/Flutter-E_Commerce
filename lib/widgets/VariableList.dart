@@ -25,7 +25,7 @@ class _VariableListState extends State<VariableList> {
         Text(
           widget.title,
           style: TextStyle(
-            color: Colors.black87,
+//            color: Colors.black87,
             fontSize: 16,
             fontFamily: 'Raleway-bold',
           ),

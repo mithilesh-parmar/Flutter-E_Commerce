@@ -9,6 +9,7 @@ import 'screens/Profile_page.dart';
 import 'screens/Detail_Page.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:badges/badges.dart';
+
 void main() => runApp(MaterialApp(
       home: MyApp(),
       initialRoute: MyApp.id,
@@ -60,7 +61,6 @@ class _MyAppState extends State<MyApp> {
       statusBarColor: isDark ? Constants.darkPrimary : Constants.lightPrimary,
       statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     ));
-
   }
 
   @override
@@ -77,6 +77,17 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             SizedBox(width: 20),
+            Center(
+                child: IconButton(
+                    icon: Icon(Icons.bubble_chart),
+                    onPressed: () {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    })),
+            SizedBox(
+              width: 20,
+            )
           ],
         ),
         key: _scaffoldKey,
