@@ -6,6 +6,7 @@ import 'package:e_commerce/util/repo.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 import 'package:e_commerce/widgets/ImagePreview.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class DetailPage extends StatefulWidget {
   final Product _product;
@@ -20,6 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   bool isExpanded = false;
   bool isVariableProduct = false;
   Repository repo;
+  double rating = 4;
 
   @override
   void initState() {
@@ -40,46 +42,74 @@ class _DetailPageState extends State<DetailPage> {
           children: <Widget>[
             ListView(
               children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      height: 380,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                              image:
-                                  NetworkImage(widget._product.images[0].src),
-                              fit: BoxFit.fill)),
-                    ),
-                    Positioned(
-                      right: -10.0,
-                      child: RawMaterialButton(
-                        splashColor: Colors.red,
-                        onPressed: () {},
-                        fillColor: Theme.of(context).backgroundColor,
-                        shape: CircleBorder(),
-                        child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
-                            Feather.getIconData("heart"),
-                            color: Theme.of(context).textTheme.title.color,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                ImagePreview(
+                  src:
+                      widget._product.images.map((value) => value.src).toList(),
+                  previewWidth: 80,
+                  previewHeight: 80,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    "${widget._product.name}",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, bottom: 2),
+                      child: Text(
+                        "${widget._product.name}",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
+                    Spacer(),
+                    RawMaterialButton(
+                      splashColor: Colors.red,
+                      onPressed: () {},
+                      elevation: 0,
+                      fillColor: Theme.of(context).backgroundColor,
+                      shape: CircleBorder(),
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(
+                          Feather.getIconData("heart"),
+                          size: 30,
+                          color: Theme.of(context).textTheme.title.color,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 6,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      SmoothStarRating(
+                          allowHalfRating: true,
+                          onRatingChanged: (v) {
+                            rating = v;
+                          },
+                          starCount: 5,
+                          rating: rating,
+                          size: 25.0,
+                          color: Colors.amberAccent,
+                          borderColor: Theme.of(context).textTheme.title.color,
+                          spacing: 0.0),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      FlatButton(
+                        onPressed: () {},
+                        child: Text(
+                          '36 reviews',
+                          overflow: TextOverflow.fade,
+                        ),
+                      )
+                    ],
                   ),
                 ),
 
@@ -88,8 +118,8 @@ class _DetailPageState extends State<DetailPage> {
                   child: Text(
                     "\$${widget._product.price}",
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
