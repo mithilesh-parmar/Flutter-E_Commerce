@@ -54,13 +54,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: isDark ? Constants.darkPrimary : Constants.lightPrimary,
-      statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
-    ));
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Constants.darkBG,
+        systemNavigationBarIconBrightness: Brightness.light));
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
   @override
@@ -70,7 +69,6 @@ class _MyAppState extends State<MyApp> {
       theme: isDark ? Constants.darkTheme : Constants.lightTheme,
       home: Scaffold(
         appBar: AppBar(
-
           actions: <Widget>[
             Center(
               child: IconBadge(

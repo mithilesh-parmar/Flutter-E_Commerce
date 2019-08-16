@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -35,7 +36,10 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget._product.name),
+        title: Text(
+          widget._product.name,
+          style: TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w500),
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -45,16 +49,17 @@ class _DetailPageState extends State<DetailPage> {
                 ImagePreview(
                   src:
                       widget._product.images.map((value) => value.src).toList(),
-                  previewWidth: 80,
-                  previewHeight: 80,
                 ),
+
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Row(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0, bottom: 2),
+                      padding: const EdgeInsets.only(
+                        left: 8.0,
+                      ),
                       child: Text(
                         "${widget._product.name}",
                         style: TextStyle(
@@ -64,21 +69,38 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     Spacer(),
-                    RawMaterialButton(
-                      splashColor: Colors.red,
-                      onPressed: () {},
-                      elevation: 0,
-                      fillColor: Theme.of(context).backgroundColor,
-                      shape: CircleBorder(),
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(
-                          Feather.getIconData("heart"),
-                          size: 30,
-                          color: Theme.of(context).textTheme.title.color,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.only(left: 8, right: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Feather.getIconData("heart"),
+                            size: 26,
+                            color: Theme.of(context).textTheme.title.color,
+                          ),
                         ),
                       ),
-                    )
+                    ),
+//                    RawMaterialButton(
+//                      splashColor: Colors.red,
+//                      onPressed: () {},
+//                      elevation: 0,
+//                      fillColor: Theme.of(context).backgroundColor,
+//                      shape: CircleBorder(),
+//                      child: Padding(
+//                        padding: EdgeInsets.all(5),
+//                        child: Icon(
+//                          Feather.getIconData("heart"),
+//                          size: 30,
+//                          color: Theme.of(context).textTheme.title.color,
+//                        ),
+//                      ),
+//                    )
                   ],
                 ),
 
@@ -124,7 +146,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
 
-                SizedBox(height: 10),
+                SizedBox(height: 6),
                 Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: AnimatedCrossFade(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ImagePreview extends StatefulWidget {
   final List src;
@@ -9,8 +10,8 @@ class ImagePreview extends StatefulWidget {
       {@required this.src,
       this.height,
       this.width,
-      @required this.previewHeight,
-      @required this.previewWidth,
+      this.previewHeight,
+      this.previewWidth,
       this.defaultImageIndex = 0});
 
   @override
@@ -30,56 +31,102 @@ class _ImagePreviewState extends State<ImagePreview> {
 
   @override
   Widget build(BuildContext context) {
+//    return Stack(
+//      children: <Widget>[
+//        GestureDetector(
+//          onHorizontalDragEnd: (details) {
+//             _onPreviewTap(_selectedIndex + 1);
+//          },
+//          child: Container(
+//            width: widget.width == null
+//                ? MediaQuery.of(context).size.width
+//                : widget.width,
+//            height: widget.height == null
+//                ? (MediaQuery.of(context).size.height / 1.55)
+//                : widget.height,
+//            decoration: BoxDecoration(
+//              color: Colors.transparent,
+//              borderRadius: BorderRadius.all(
+//                Radius.circular(6),
+//              ),
+//              image: DecorationImage(
+//                  image: NetworkImage(widget.src[_selectedIndex]),
+//                  fit: BoxFit.cover),
+//            ),
+//          ),
+//        ),
+//        Positioned(
+//          bottom: 0,
+//          height: widget.previewHeight + 10,
+//          width: MediaQuery.of(context).size.width,
+//          child: ListView.builder(
+//              scrollDirection: Axis.horizontal,
+//              itemCount: widget.src.length,
+//              shrinkWrap: true,
+//              itemBuilder: (context, pos) {
+//                return GestureDetector(
+//                  onTap: () {
+//                    _onPreviewTap(pos);
+//                  },
+//                  child: Container(
+//                    margin: EdgeInsets.all(2),
+//                    height: widget.previewHeight,
+//                    width: widget.previewWidth,
+//                    decoration: BoxDecoration(
+//                        borderRadius: BorderRadius.circular(4),
+//                        border: Border.all(
+//                            color: _selectedIndex == pos
+//                                ? Theme.of(context).accentColor
+//                                : Colors.black54),
+//                        image: DecorationImage(
+//                            image: NetworkImage(widget.src[pos]))),
+//                  ),
+//                );
+//              }),
+//        )
+//      ],
+//    );
+
     return Stack(
       children: <Widget>[
-        GestureDetector(
-          onHorizontalDragEnd: (details) {
-            _onPreviewTap(_selectedIndex + 1);
-          },
-          child: Container(
-            width: widget.width == null
-                ? MediaQuery.of(context).size.width
-                : widget.width,
-            height: widget.height == null
-                ? (MediaQuery.of(context).size.height / 2) - 40
-                : widget.height,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(
-                  image: NetworkImage(widget.src[_selectedIndex]),
-                  fit: BoxFit.fill),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          height: widget.previewHeight + 10,
-          width: MediaQuery.of(context).size.width,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.src.length,
-              shrinkWrap: true,
-              itemBuilder: (context, pos) {
-                return GestureDetector(
-                  onTap: () {
-                    _onPreviewTap(pos);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(2),
-                    height: widget.previewHeight,
-                    width: widget.previewWidth,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                            color: _selectedIndex == pos
-                                ? Theme.of(context).accentColor
-                                : Colors.black54),
-                        image: DecorationImage(
-                            image: NetworkImage(widget.src[pos]))),
-                  ),
+        CarouselSlider(
+//          autoPlay: true,
+          height: MediaQuery.of(context).size.height / 1.65,
+//          pauseAutoPlayOnTouch: Duration(seconds: 1),
+          viewportFraction: .9,
+          enlargeCenterPage: true,
+          items: widget.src.map((url) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 2.0),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: NetworkImage(url))),
                 );
-              }),
-        )
+              },
+            );
+          }).toList(),
+        ),
+//        Positioned(
+//          bottom: 15,
+//          left: 15,
+//          width: MediaQuery.of(context).size.width,
+//          height: 30,
+//          child: ListView.builder(
+//              scrollDirection: Axis.horizontal,
+//              itemCount: widget.src.length,
+//              itemBuilder: (context, pos) {
+//                return Container(
+//                  margin: EdgeInsets.all(4),
+//                  height: 10,
+//                  width: 15,
+//                  decoration: BoxDecoration(
+//                      color: Colors.black87, shape: BoxShape.circle),
+//                );
+//              }),
+//        )
       ],
     );
   }

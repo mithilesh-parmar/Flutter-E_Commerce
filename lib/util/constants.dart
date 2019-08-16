@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class Constants {
   static const CONSUMER_KEY = 'ck_4efd056436dc573fe47c851f065827c67fd6546b';
   static final CONSUMER_SECRET = 'cs_a3dd6df42eb69bd172df11fc580a0ad956ca2ca8';
@@ -18,7 +19,6 @@ class Constants {
   static final URL_CLOUD =
       'https://mastigophoran-miner.000webhostapp.com/wp-json/wc/v3/products';
 
-
   //Colors for theme
   static Color lightPrimary = Color(0xfffcfcff);
   static Color darkPrimary = Colors.black;
@@ -30,7 +30,7 @@ class Constants {
   static ThemeData lightTheme = ThemeData(
     backgroundColor: lightBG,
     primaryColor: lightPrimary,
-    accentColor:  lightAccent,
+    accentColor: lightAccent,
     cursorColor: lightAccent,
     scaffoldBackgroundColor: lightBG,
     appBarTheme: AppBarTheme(
@@ -64,5 +64,4 @@ class Constants {
       ),
     ),
   );
-
 }
