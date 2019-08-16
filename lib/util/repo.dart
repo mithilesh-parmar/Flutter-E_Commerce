@@ -35,6 +35,18 @@ class Repository {
     return products;
   }
 
+  Future<List<Product>> getProductForCategory(String categoryId) async {
+    List<Product> categoryProducts = List();
+    debugPrint('Fetching category products for id : $categoryId');
+    Response r = await get('${URL_CLOUD}products?category=$categoryId',
+        headers: {'Authorization': auth_cloud});
+    debugPrint('${r.statusCode}');
+    categoryProducts = (json.decode(r.body) as List)
+        .map((value) => Product.fromJSON(value))
+        .toList();
+    return categoryProducts;
+  }
+
   Future<List<ProductCategory.Category>> getCategories() async {
     print('fetching categories.....');
     if (categories.length > 0) {

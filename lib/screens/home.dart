@@ -9,6 +9,8 @@ import 'package:e_commerce/widgets/Header.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 
 class HomePage extends StatefulWidget {
+  static String title = 'Home';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -98,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DetailPage(product)));
+                                        builder: (context) =>
+                                            DetailPage(product)));
                               },
                               product: product,
                             );

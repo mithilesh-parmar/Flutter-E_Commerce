@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/VariableList.dart';
 
 class CartPage extends StatefulWidget {
-  static String id = "CartPage";
+  static String id = "CartPage", title = 'Cart';
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -248,7 +248,7 @@ class CartItem extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         ButtonTheme(
-                          height:55,
+                          height: 55,
                           child: FlatButton(
                               color: Colors.lightBlueAccent,
                               onPressed: () {},
@@ -263,7 +263,7 @@ class CartItem extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           child: ButtonTheme(
-                            height:55,
+                            height: 55,
                             child: FlatButton(
                                 color: Colors.redAccent,
                                 onPressed: () {},

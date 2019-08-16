@@ -6,7 +6,6 @@ import 'package:e_commerce/util/repo.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 
-
 //TODO add repo method to get products according to category
 
 class ProductListPage extends StatefulWidget {
@@ -34,12 +33,12 @@ class _ProductListPageState extends State<ProductListPage> {
     return Scaffold(
 //      backgroundColor: Color(0xFFf3f6fb),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+//        backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+//              color: Colors.black,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -47,14 +46,14 @@ class _ProductListPageState extends State<ProductListPage> {
         title: Text(
           widget.categoryName,
           style: TextStyle(
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.w500,
-              color: Colors.black),
+            fontFamily: 'Raleway',
+            fontWeight: FontWeight.w500,
+          ),
         ),
         centerTitle: true,
       ),
       body: FutureBuilder(
-          future: repo.getProducts(),
+          future: repo.getProductForCategory(widget.categoryId.toString()),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
@@ -72,21 +71,28 @@ class _ProductListPageState extends State<ProductListPage> {
                   return Center(
                     child: Text('Error: ${snapshot.error}'),
                   );
-                return GridView.builder(
-                    itemCount: snapshot.data.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: .75),
-                    itemBuilder: (context, pos) {
-                      Product product = snapshot.data[pos];
-                      return ProductDisplayCard(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailPage(product)));
-                          },
-                          product: product);
-                    });
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: GridView.builder(
+                      itemCount: snapshot.data.length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: .75,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 1),
+                      itemBuilder: (context, pos) {
+                        Product product = snapshot.data[pos];
+                        return ProductDisplayCard(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailPage(product)));
+                            },
+                            product: product);
+                      }),
+                );
             }
           }),
     );

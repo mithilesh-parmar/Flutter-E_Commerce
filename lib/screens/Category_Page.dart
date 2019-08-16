@@ -8,6 +8,7 @@ import 'package:e_commerce/model/woocommerce_category.dart' as ProductCategory;
 
 class CategoryPage extends StatefulWidget {
   static String id = "CategoryPage";
+  static String title = "CategoryPage";
 
   @override
   _CategoryPageState createState() => _CategoryPageState();
@@ -28,11 +29,29 @@ class _CategoryPageState extends State<CategoryPage> {
     return FutureBuilder(
         future: repo.getCategories(),
         builder: (context, snapshot) {
-          return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, pos) {
-                return CategoryBanner(snapshot.data[pos]);
-              });
+          switch(snapshot.connectionState){
+
+            case ConnectionState.none:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator(),);
+            case ConnectionState.active:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.done:
+             if(snapshot.hasError)return Center(child: Text('Error: ${snapshot.error}'),);
+             return ListView.builder(
+                 itemCount: snapshot.data.length + 1,
+                 itemBuilder: (context, pos) {
+                   if (pos == 0)
+                     return SearchBar(
+                       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                     );
+                   return CategoryBanner(snapshot.data[pos - 1]);
+                 });
+          }
+
         });
   }
 }
@@ -44,6 +63,7 @@ class CategoryBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = (MediaQuery.of(context).size.height)/2 - 50;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -57,7 +77,7 @@ class CategoryBanner extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            height: 180,
+            height: height,
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -65,7 +85,7 @@ class CategoryBanner extends StatelessWidget {
                     image: NetworkImage(_category.image.src))),
           ),
           Container(
-            height: 180,
+            height: height,
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
@@ -76,7 +96,7 @@ class CategoryBanner extends StatelessWidget {
             ),
           ),
           Container(
-            height: 180,
+            height: height,
             margin: EdgeInsets.all(4),
             child: Center(
                 child: Text(

@@ -5,6 +5,7 @@ import 'package:e_commerce/widgets/OffersBanner.dart';
 import 'package:e_commerce/util/repo.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
+import 'package:e_commerce/widgets/ImagePreview.dart';
 
 class DetailPage extends StatefulWidget {
   final Product _product;
@@ -46,24 +47,22 @@ class _DetailPageState extends State<DetailPage> {
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  '${widget._product.images[0].src}'),
+                              image:
+                                  NetworkImage(widget._product.images[0].src),
                               fit: BoxFit.fill)),
                     ),
                     Positioned(
                       right: -10.0,
-                      bottom: 3.0,
                       child: RawMaterialButton(
+                        splashColor: Colors.red,
                         onPressed: () {},
-                        fillColor: Colors.white,
+                        fillColor: Theme.of(context).backgroundColor,
                         shape: CircleBorder(),
-                        elevation: 4.0,
                         child: Padding(
                           padding: EdgeInsets.all(5),
                           child: Icon(
                             Feather.getIconData("heart"),
-                            color: Theme.of(context).accentColor,
-                            size: 17,
+                            color: Theme.of(context).textTheme.title.color,
                           ),
                         ),
                       ),
@@ -83,6 +82,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
@@ -93,6 +93,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 10),
                 Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -115,10 +116,8 @@ class _DetailPageState extends State<DetailPage> {
                     onTap: _expand,
                     child: Text(
                       isExpanded ? "Hide" : "Show",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black.withOpacity(.7),
-                          fontSize: 16),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                     ),
                   ),
                 ),
@@ -126,7 +125,13 @@ class _DetailPageState extends State<DetailPage> {
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0,top: 4,bottom: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Divider(
+                    color: Theme.of(context).textTheme.title.color,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, top: 4, bottom: 16),
                   child: Text(
                     "Related",
                     style: TextStyle(
@@ -168,8 +173,8 @@ class _DetailPageState extends State<DetailPage> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailPage(snapshot.data[pos])));
+                                              builder: (context) => DetailPage(
+                                                  snapshot.data[pos])));
                                     },
                                     product: snapshot.data[pos],
                                   );

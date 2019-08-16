@@ -1,3 +1,4 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lipsum/lipsum.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
@@ -93,7 +94,19 @@ class ProductDisplayCard extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        margin: EdgeInsets.all(1),
+//        padding: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.transparent, Constants.lightBG.withOpacity(.1)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(6),
+              topRight: Radius.circular(6),
+              bottomRight: Radius.circular(4),
+              bottomLeft: Radius.circular(4)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -103,24 +116,24 @@ class ProductDisplayCard extends StatelessWidget {
                 width: MediaQuery.of(context).size.width / 2 - 10,
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
-                    color: Colors.greenAccent.withOpacity(.7),
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        topRight: Radius.circular(6),
-                        bottomRight: Radius.circular(2),
-                        bottomLeft: Radius.circular(2)),
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4),
+                    ),
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(product.images[0].src))),
               ),
             ),
+            SizedBox(height: 8,),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 '${product.name}',
                 style: TextStyle(
                     fontFamily: 'Raleway-bold',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),
             ),
@@ -128,9 +141,10 @@ class ProductDisplayCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 'Rs. ${product.price}',
-
+                style: TextStyle(fontWeight: FontWeight.w200),
               ),
-            )
+            ),
+            SizedBox(height: 20,)
           ],
         ),
       ),

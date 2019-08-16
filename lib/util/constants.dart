@@ -29,7 +29,6 @@ class Constants {
 
   static ThemeData lightTheme = ThemeData(
     backgroundColor: lightBG,
-
     primaryColor: lightPrimary,
     accentColor:  lightAccent,
     cursorColor: lightAccent,

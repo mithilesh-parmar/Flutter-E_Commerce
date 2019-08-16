@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  static String id = "ProfilePage";
+  static String id = "ProfilePage",title = 'Profile';
 
   @override
   _ProfilePageState createState() => _ProfilePageState();

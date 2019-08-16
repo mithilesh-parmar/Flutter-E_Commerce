@@ -28,13 +28,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
-  static Widget _homeScreen = HomePage();
-  static Widget _categoryScreen = CategoryPage();
-  static Widget _profileScreen = ProfilePage();
-  static Widget _cartScreen = CartPage();
+  static HomePage _homeScreen = HomePage();
+  static CategoryPage _categoryScreen = CategoryPage();
+  static ProfilePage _profileScreen = ProfilePage();
+  static CartPage _cartScreen = CartPage();
   bool isDark = false;
   Widget _selectedScreen = _homeScreen;
-  List<Widget> screens = [
+  List<dynamic> screens = [
     _homeScreen,
     _categoryScreen,
     _cartScreen,
@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
       theme: isDark ? Constants.darkTheme : Constants.lightTheme,
       home: Scaffold(
         appBar: AppBar(
+
           actions: <Widget>[
             Center(
               child: IconBadge(
