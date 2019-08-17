@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce/widgets/AttributesCard.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -50,7 +51,6 @@ class _DetailPageState extends State<DetailPage> {
                   src:
                       widget._product.images.map((value) => value.src).toList(),
                 ),
-
                 SizedBox(
                   height: 50,
                 ),
@@ -63,8 +63,9 @@ class _DetailPageState extends State<DetailPage> {
                       child: Text(
                         "${widget._product.name}",
                         style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 24,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -73,34 +74,19 @@ class _DetailPageState extends State<DetailPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
                         onTap: () {},
-                        child: Container(
+                        child: AnimatedContainer(
                           padding: EdgeInsets.only(left: 8, right: 8),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Feather.getIconData("heart"),
-                            size: 26,
                             color: Theme.of(context).textTheme.title.color,
                           ),
+                          duration: Duration(milliseconds: 100),
                         ),
                       ),
                     ),
-//                    RawMaterialButton(
-//                      splashColor: Colors.red,
-//                      onPressed: () {},
-//                      elevation: 0,
-//                      fillColor: Theme.of(context).backgroundColor,
-//                      shape: CircleBorder(),
-//                      child: Padding(
-//                        padding: EdgeInsets.all(5),
-//                        child: Icon(
-//                          Feather.getIconData("heart"),
-//                          size: 30,
-//                          color: Theme.of(context).textTheme.title.color,
-//                        ),
-//                      ),
-//                    )
                   ],
                 ),
 
@@ -140,13 +126,43 @@ class _DetailPageState extends State<DetailPage> {
                   child: Text(
                     "\$${widget._product.price}",
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
 
-                SizedBox(height: 6),
+                SizedBox(
+                  height: 30,
+                ),
+
+                Container(
+                  child: widget._product.attributes.length > 0
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 8),
+                          child: AttributesView(
+                            title: widget._product.attributes[0].name,
+                            attributes: widget._product.attributes[0].options,
+                          ),
+                        )
+                      : null,
+                ),
+
+                SizedBox(
+                  height: widget._product.attributes.length > 0 ? 30 : 0,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Product Details",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: AnimatedCrossFade(
