@@ -91,7 +91,7 @@ class _ImagePreviewState extends State<ImagePreview> {
       children: <Widget>[
         CarouselSlider(
 //          autoPlay: true,
-          height: MediaQuery.of(context).size.height / 1.65,
+          height: MediaQuery.of(context).size.height / 1.55,
 //          pauseAutoPlayOnTouch: Duration(seconds: 1),
           viewportFraction: .9,
           enlargeCenterPage: true,
@@ -109,24 +109,7 @@ class _ImagePreviewState extends State<ImagePreview> {
             );
           }).toList(),
         ),
-//        Positioned(
-//          bottom: 15,
-//          left: 15,
-//          width: MediaQuery.of(context).size.width,
-//          height: 30,
-//          child: ListView.builder(
-//              scrollDirection: Axis.horizontal,
-//              itemCount: widget.src.length,
-//              itemBuilder: (context, pos) {
-//                return Container(
-//                  margin: EdgeInsets.all(4),
-//                  height: 10,
-//                  width: 15,
-//                  decoration: BoxDecoration(
-//                      color: Colors.black87, shape: BoxShape.circle),
-//                );
-//              }),
-//        )
+        // TODO add a favourite button
       ],
     );
   }

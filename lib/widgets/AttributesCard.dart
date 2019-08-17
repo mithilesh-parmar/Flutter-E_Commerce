@@ -46,7 +46,7 @@ class _AttributesViewState extends State<AttributesView> {
                   widget.subtitle.toUpperCase(),
                   style: TextStyle(
                       fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w200,
+                      fontWeight: FontWeight.w400,
                       color: Theme.of(context).accentColor),
                 ),
               ],
@@ -81,7 +81,9 @@ class _AttributesViewState extends State<AttributesView> {
                             boxShadow: [
                               BoxShadow(
                                 color: pos == _selectedIndex
-                                    ? Colors.amberAccent.withOpacity(.6)
+                                    ? Theme.of(context)
+                                        .accentColor
+                                        .withOpacity(.7)
                                     : Colors.transparent,
                                 offset: Offset(0, 3),
                                 blurRadius: 10,
