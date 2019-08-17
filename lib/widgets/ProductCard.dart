@@ -122,7 +122,7 @@ class ProductDisplayCard extends StatelessWidget {
                       topRight: Radius.circular(4),
                     ),
                     image: DecorationImage(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         image: NetworkImage(product.images[0].src))),
               ),
             ),

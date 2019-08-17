@@ -16,42 +16,51 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   Repository repo;
+  Future<List<ProductCategory.Category>> _categories;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     repo = Repository();
+    _categories = _getCategories();
+  }
+
+  Future<List<ProductCategory.Category>> _getCategories() async {
+    return await repo.getCategories();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: repo.getCategories(),
+        future: _categories,
         builder: (context, snapshot) {
-          switch(snapshot.connectionState){
-
+          switch (snapshot.connectionState) {
             case ConnectionState.none:
               // TODO: Handle this case.
               break;
             case ConnectionState.waiting:
-              return Center(child: CircularProgressIndicator(),);
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             case ConnectionState.active:
               // TODO: Handle this case.
               break;
             case ConnectionState.done:
-             if(snapshot.hasError)return Center(child: Text('Error: ${snapshot.error}'),);
-             return ListView.builder(
-                 itemCount: snapshot.data.length + 1,
-                 itemBuilder: (context, pos) {
-                   if (pos == 0)
-                     return SearchBar(
-                       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                     );
-                   return CategoryBanner(snapshot.data[pos - 1]);
-                 });
+              if (snapshot.hasError)
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              return ListView.builder(
+                  itemCount: snapshot.data.length + 1,
+                  itemBuilder: (context, pos) {
+                    if (pos == 0)
+                      return SearchBar(
+                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                      );
+                    return CategoryBanner(snapshot.data[pos - 1]);
+                  });
           }
-
         });
   }
 }
@@ -63,7 +72,7 @@ class CategoryBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = (MediaQuery.of(context).size.height)/2 - 50;
+    double height = (MediaQuery.of(context).size.height) / 2 - 50;
     return InkWell(
       onTap: () {
         Navigator.push(

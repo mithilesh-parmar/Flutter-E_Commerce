@@ -19,12 +19,18 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _searchControl = new TextEditingController();
   Repository repo;
 
+  Future<List<Product>> _trendingProducts;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     repo = Repository();
-    repo.getCategories();
+    _trendingProducts = _getTrendingProducts();
+  }
+
+  Future<List<Product>> _getTrendingProducts() async {
+    return await repo.getProducts();
   }
 
   @override
@@ -60,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 10),
             child: HeaderWidget(
               heading: 'Trending',
-              iconText: 'More',
+              iconText: 'See all',
               icon: null,
               onPressed: () {},
             ),
@@ -71,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8),
             child: FutureBuilder(
-                future: repo.getProducts(),
+                future: _trendingProducts,
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -92,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                           itemCount: snapshot.data.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: .8, crossAxisCount: 2),
+                                  childAspectRatio: .6, crossAxisCount: 2),
                           itemBuilder: (context, pos) {
                             Product product = snapshot.data[pos];
                             return ProductDisplayCard(

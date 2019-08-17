@@ -49,6 +49,7 @@ class BottomButtonView extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).accentColor,
                   ),
+
                   child: Center(
                       child: Text(
                         'Add to cart'.toUpperCase(),

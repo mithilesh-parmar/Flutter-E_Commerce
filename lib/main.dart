@@ -90,10 +90,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         key: _scaffoldKey,
-        body: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: _selectedScreen,
-        ),
+        body: _selectedScreen,
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
