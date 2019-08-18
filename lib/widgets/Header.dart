@@ -1,9 +1,10 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
-  var iconText, heading;
-  IconData icon;
-  Function onPressed;
+  final String iconText, heading;
+  final IconData icon;
+  final Function onPressed;
 
   HeaderWidget({this.iconText, this.heading, this.icon, this.onPressed});
 
@@ -14,7 +15,8 @@ class HeaderWidget extends StatelessWidget {
         Text(
           heading,
           style: TextStyle(
-              fontSize: 23, fontWeight: FontWeight.w600),
+              fontSize: Constants.screenAwareSize(23, context),
+              fontWeight: FontWeight.w600),
         ),
         Spacer(),
         FlatButton.icon(
@@ -22,7 +24,9 @@ class HeaderWidget extends StatelessWidget {
             icon: Icon(icon),
             label: Text(
               iconText,
-              style: TextStyle(fontFamily: 'Raleway'),
+              style: TextStyle(
+                  fontFamily: 'Raleway',
+                  fontSize: Constants.screenAwareSize(14, context)),
             ))
       ],
     );

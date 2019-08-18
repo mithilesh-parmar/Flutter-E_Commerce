@@ -1,3 +1,4 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:e_commerce/util/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
@@ -6,15 +7,15 @@ import 'package:e_commerce/screens/ProductList_Page.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 import 'package:e_commerce/model/woocommerce_category.dart' as ProductCategory;
 
-class CategoryPage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   static String id = "CategoryPage";
   static String title = "CategoryPage";
 
   @override
-  _CategoryPageState createState() => _CategoryPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _SearchPageState extends State<SearchPage> {
   Repository repo;
   Future<List<ProductCategory.Category>> _categories;
 
@@ -54,10 +55,7 @@ class _CategoryPageState extends State<CategoryPage> {
               return ListView.builder(
                   itemCount: snapshot.data.length + 1,
                   itemBuilder: (context, pos) {
-                    if (pos == 0)
-                      return SearchBar(
-                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                      );
+                    if (pos == 0) return SearchBar();
                     return CategoryBanner(snapshot.data[pos - 1]);
                   });
           }
@@ -72,21 +70,21 @@ class CategoryBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = (MediaQuery.of(context).size.height) / 2 - 50;
+    double height = (MediaQuery.of(context).size.height) / 2 - 150;
     return InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => ProductListPage(
-                      categoryName: _category.name,
-                      categoryId: _category.id,
-                    )));
+                    categoryName: _category.name,
+                    categoryId: _category.id,
+                    imageSrc: _category.image.src)));
       },
       child: Stack(
         children: <Widget>[
           Container(
-            height: height,
+            height: Constants.screenAwareSize(height, context),
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -94,7 +92,7 @@ class CategoryBanner extends StatelessWidget {
                     image: NetworkImage(_category.image.src))),
           ),
           Container(
-            height: height,
+            height: Constants.screenAwareSize(height, context),
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
@@ -105,13 +103,15 @@ class CategoryBanner extends StatelessWidget {
             ),
           ),
           Container(
-            height: height,
+            height: Constants.screenAwareSize(height, context),
             margin: EdgeInsets.all(4),
             child: Center(
                 child: Text(
               _category.name,
               style: TextStyle(
-                  fontSize: 40, fontFamily: 'Raleway', color: Colors.white),
+                  fontSize: Constants.screenAwareSize(40, context),
+                  fontFamily: 'Raleway',
+                  color: Colors.white),
             )),
           )
         ],

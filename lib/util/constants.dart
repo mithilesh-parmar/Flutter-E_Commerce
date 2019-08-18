@@ -27,6 +27,12 @@ class Constants {
   static Color lightBG = Color(0xfffcfcff);
   static Color darkBG = Colors.black;
 
+  static double baseHeight = 640;
+
+  static double screenAwareSize(double size, BuildContext context) {
+    return size * MediaQuery.of(context).size.height / baseHeight;
+  }
+
   static ThemeData lightTheme = ThemeData(
     backgroundColor: lightBG,
     primaryColor: lightPrimary,

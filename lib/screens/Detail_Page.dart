@@ -10,6 +10,7 @@ import 'package:e_commerce/widgets/ProductCard.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 import 'package:e_commerce/widgets/ImagePreview.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:e_commerce/util/constants.dart';
 
 class DetailPage extends StatefulWidget {
   final Product _product;
@@ -45,19 +46,22 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         title: Text(
           widget._product.name,
-          style: TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w500),
+          style: TextStyle(
+              fontFamily: 'Raleway', fontWeight: FontWeight.w500, fontSize: 14),
         ),
         actions: <Widget>[
           IconButton(
               icon: Icon(
                 Icons.share,
                 color: Theme.of(context).textTheme.title.color,
+//                size: Constants.screenAwareSize(20, context),
               ),
               onPressed: () {}),
           IconButton(
               icon: Icon(
                 isFavourite ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).textTheme.title.color,
+//                size: Constants.screenAwareSize(20, context),
               ),
               onPressed: () {
                 setState(() {
@@ -65,7 +69,7 @@ class _DetailPageState extends State<DetailPage> {
                 });
               }),
           SizedBox(
-            width: 18,
+            width: Constants.screenAwareSize(8, context),
           ),
         ],
       ),
@@ -79,7 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                       widget._product.images.map((value) => value.src).toList(),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: Constants.screenAwareSize(30, context),
                 ),
                 Row(
                   children: <Widget>[
@@ -89,12 +93,14 @@ class _DetailPageState extends State<DetailPage> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 8.0,
+                            left: 8,
                           ),
                           child: Text(
                             "${widget._product.name}",
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 25,
                               fontFamily: 'Raleway',
                               fontWeight: FontWeight.bold,
                             ),
@@ -107,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
                             onRatingChanged: (v) {},
                             starCount: 5,
                             rating: 3,
-                            size: 20.0,
+                            size: Constants.screenAwareSize(20, context),
                             color: Theme.of(context).accentColor,
                             borderColor:
                                 Theme.of(context).textTheme.title.color,
@@ -121,7 +127,7 @@ class _DetailPageState extends State<DetailPage> {
                       child: Text(
                         "\$${widget._product.price}",
                         style: TextStyle(
-                          fontSize: 26,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -129,7 +135,7 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 20,
+                  height: Constants.screenAwareSize(20, context),
                 ),
                 Container(
                   child: widget._product.attributes.length > 0
@@ -137,24 +143,25 @@ class _DetailPageState extends State<DetailPage> {
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8, bottom: 8),
                           child: AttributesView(
+                            height: 50,
+                            width: 50,
                             title: widget._product.attributes[0].name,
                             attributes: widget._product.attributes[0].options,
                           ),
                         )
                       : null,
                 ),
-                SizedBox(
-                  height: widget._product.attributes.length > 0 ? 20 : 0,
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
                     "PRODUCT DETAILS",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: Constants.screenAwareSize(10, context),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -177,13 +184,14 @@ class _DetailPageState extends State<DetailPage> {
                     onTap: _expand,
                     child: Text(
                       isExpanded ? "HIDE" : "SHOW",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: Constants.screenAwareSize(10, context),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -194,13 +202,16 @@ class _DetailPageState extends State<DetailPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 4, bottom: 8),
                   child: Text(
-                    "VIEW SIMILAR".toUpperCase(),
-                    style: TextStyle(fontSize: 20, fontFamily: 'Raleway'),
+                    "VIEW SIMILAR",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
-                  height: (MediaQuery.of(context).size.height)/3,
-                  padding: EdgeInsets.only(left: 8),
+                  height: (MediaQuery.of(context).size.height) / 3,
+                  padding: EdgeInsets.only(left: 8, right: 8),
                   child: FutureBuilder(
                       future: _relatedProducts,
                       builder: (context, snapshot) {
@@ -227,6 +238,7 @@ class _DetailPageState extends State<DetailPage> {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, pos) {
                                   return ProductDisplayCard(
+                                    margin: 2,
                                     onPressed: () {
                                       Navigator.push(
                                           context,
@@ -241,14 +253,17 @@ class _DetailPageState extends State<DetailPage> {
                       }),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: Constants.screenAwareSize(20, context),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 16.0, top: 4, bottom: 10),
                   child: Text(
-                    "MORE TO EXPLORE".toUpperCase(),
-                    style: TextStyle(fontFamily: 'Raleway'),
+                    "MORE TO EXPLORE",
+                    style: TextStyle(
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold,
+                        fontSize:16),
                   ),
                 ),
                 Padding(
@@ -264,24 +279,28 @@ class _DetailPageState extends State<DetailPage> {
                               child: Row(
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 8),
+                                    padding: const EdgeInsets.only(bottom: 2),
                                     child: Text(
                                       'MORE IN ${widget._product.categories[pos].name}',
-                                      style: TextStyle(fontFamily: 'Raleway'),
+                                      style: TextStyle(
+                                          fontFamily: 'Raleway',
+                                          fontSize:
+                                              14),
                                     ),
                                   ),
                                   Spacer(),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 8),
-                                    child: Icon(Icons.chevron_right),
+                                    padding: const EdgeInsets.only(bottom: 2),
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                             Divider(
                               color: Theme.of(context).textTheme.title.color,
+                              height: Constants.screenAwareSize(8, context),
                             )
                           ],
                         );
@@ -289,7 +308,7 @@ class _DetailPageState extends State<DetailPage> {
                       itemCount: widget._product.categories.length),
                 ),
                 SizedBox(
-                  height: 80,
+                  height: Constants.screenAwareSize(100, context),
                 ),
               ],
             ),
@@ -297,18 +316,8 @@ class _DetailPageState extends State<DetailPage> {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: Column(
-                  children: <Widget>[
-                    BottomButtonView(
-                        onWishlistClicked: () {}, onCartClicked: () {}),
-                    SizedBox(
-                      height: 10,
-                      child: Container(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    )
-                  ],
-                )),
+                child: BottomButtonView(
+                    onWishlistClicked: () {}, onCartClicked: () {})),
           ],
         ),
       ),

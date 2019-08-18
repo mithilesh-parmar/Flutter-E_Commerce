@@ -1,3 +1,4 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class AttributesView extends StatefulWidget {
@@ -9,12 +10,14 @@ class AttributesView extends StatefulWidget {
   @override
   _AttributesViewState createState() => _AttributesViewState();
 
+  //TODO adjust screen size
+
   AttributesView(
       {@required this.attributes,
       @required this.title,
       this.subtitle = 'size chart',
-      this.width = 40,
-      this.height = 50,
+      @required this.width,
+      @required this.height,
       this.options});
 }
 
@@ -30,7 +33,7 @@ class _AttributesViewState extends State<AttributesView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 100,
+        height: Constants.screenAwareSize(100, context),
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,23 +42,27 @@ class _AttributesViewState extends State<AttributesView> {
               children: <Widget>[
                 Text(
                   widget.title,
-                  style: TextStyle(fontSize: 16, fontFamily: 'Raleway'),
+                  style: TextStyle(
+                      fontSize: Constants.screenAwareSize(16, context),
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Text(
                   widget.subtitle.toUpperCase(),
                   style: TextStyle(
                       fontFamily: 'Raleway',
+                      fontSize: Constants.screenAwareSize(12, context),
                       fontWeight: FontWeight.w400,
                       color: Theme.of(context).accentColor),
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: Constants.screenAwareSize(10, context),
             ),
             Container(
-                height: widget.height,
+                height: Constants.screenAwareSize(widget.height, context),
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                     itemCount: widget.attributes.length, //values.length,
@@ -66,7 +73,9 @@ class _AttributesViewState extends State<AttributesView> {
                           _onAttributeTap(pos);
                         },
                         child: Container(
-                          constraints: BoxConstraints(minWidth: widget.width),
+                          constraints: BoxConstraints(
+                              minWidth: Constants.screenAwareSize(
+                                  widget.width, context)),
                           padding: EdgeInsets.all(4),
                           margin: EdgeInsets.all(4),
                           child: Center(

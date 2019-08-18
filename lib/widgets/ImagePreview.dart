@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce/util/constants.dart';
 
 class ImagePreview extends StatefulWidget {
   final List src;
@@ -91,9 +92,12 @@ class _ImagePreviewState extends State<ImagePreview> {
       children: <Widget>[
         CarouselSlider(
 //          autoPlay: true,
-          height: MediaQuery.of(context).size.height / 1.55,
+//          height: MediaQuery.of(context).size.height / 1.55,
+          height: Constants.screenAwareSize(
+              MediaQuery.of(context).size.height / 2.5, context),
 //          pauseAutoPlayOnTouch: Duration(seconds: 1),
           viewportFraction: .9,
+
           enlargeCenterPage: true,
           items: widget.src.map((url) {
             return Builder(

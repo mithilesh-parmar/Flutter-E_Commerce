@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:e_commerce/widgets/VariableList.dart';
 
 class CartPage extends StatefulWidget {
   static String id = "CartPage", title = 'Cart';
@@ -162,132 +161,132 @@ class CartItem extends StatelessWidget {
       this.price,
       this.onPressed});
 
-  void _newTaskModalBottomSheet(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 18.0, right: 8, top: 18),
-                    child: VariableList(
-                        title: 'Size',
-                        variantsList: ['1', '2', '3', '41'],
-                        type: 'SIZE'),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 18.0, right: 8, top: 18),
-                    child: VariableList(
-                        title: 'Color',
-                        variantsList: [
-                          Colors.grey,
-                          Colors.redAccent,
-                          Colors.black,
-                          Colors.orange
-                        ],
-                        type: 'COLOR'),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(18),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      'Quantity',
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      FlatButton(
-                        shape: CircleBorder(),
-                        onPressed: () {},
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Center(
-                            child: Text(
-                              '-',
-                              style: TextStyle(fontSize: 30),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        '1',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      FlatButton(
-                        shape: CircleBorder(),
-                        onPressed: () {},
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Center(
-                            child: Text(
-                              '+',
-                              style: TextStyle(fontSize: 30),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Row(
-                      children: <Widget>[
-                        ButtonTheme(
-                          height: 55,
-                          child: FlatButton(
-                              color: Colors.lightBlueAccent,
-                              onPressed: () {},
-                              child: Text(
-                                'Add to fav',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: ButtonTheme(
-                            height: 55,
-                            child: FlatButton(
-                                color: Colors.redAccent,
-                                onPressed: () {},
-                                child: Text(
-                                  'Remove',
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
+//  void _newTaskModalBottomSheet(context) {
+//    showModalBottomSheet(
+//        context: context,
+//        builder: (BuildContext bc) {
+//          return SafeArea(
+//            child: Container(
+//              child: Column(
+//                crossAxisAlignment: CrossAxisAlignment.center,
+//                mainAxisAlignment: MainAxisAlignment.center,
+//                children: <Widget>[
+//                  Padding(
+//                    padding:
+//                        const EdgeInsets.only(left: 18.0, right: 8, top: 18),
+//                    child: VariableList(
+//                        title: 'Size',
+//                        variantsList: ['1', '2', '3', '41'],
+//                        type: 'SIZE'),
+//                  ),
+//                  Padding(
+//                    padding:
+//                        const EdgeInsets.only(left: 18.0, right: 8, top: 18),
+//                    child: VariableList(
+//                        title: 'Color',
+//                        variantsList: [
+//                          Colors.grey,
+//                          Colors.redAccent,
+//                          Colors.black,
+//                          Colors.orange
+//                        ],
+//                        type: 'COLOR'),
+//                  ),
+//                  Container(
+//                    padding: EdgeInsets.all(18),
+//                    width: MediaQuery.of(context).size.width,
+//                    child: Text(
+//                      'Quantity',
+//                      textAlign: TextAlign.start,
+//                    ),
+//                  ),
+//                  SizedBox(
+//                    height: 10,
+//                  ),
+//                  Row(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    mainAxisAlignment: MainAxisAlignment.start,
+//                    mainAxisSize: MainAxisSize.max,
+//                    children: <Widget>[
+//                      FlatButton(
+//                        shape: CircleBorder(),
+//                        onPressed: () {},
+//                        child: Container(
+//                          height: 50,
+//                          width: 50,
+//                          child: Center(
+//                            child: Text(
+//                              '-',
+//                              style: TextStyle(fontSize: 30),
+//                            ),
+//                          ),
+//                        ),
+//                      ),
+//                      Text(
+//                        '1',
+//                        style: TextStyle(fontSize: 30),
+//                      ),
+//                      FlatButton(
+//                        shape: CircleBorder(),
+//                        onPressed: () {},
+//                        child: Container(
+//                          height: 50,
+//                          width: 50,
+//                          child: Center(
+//                            child: Text(
+//                              '+',
+//                              style: TextStyle(fontSize: 30),
+//                            ),
+//                          ),
+//                        ),
+//                      )
+//                    ],
+//                  ),
+//                  Padding(
+//                    padding: const EdgeInsets.all(18.0),
+//                    child: Row(
+//                      children: <Widget>[
+//                        ButtonTheme(
+//                          height: 55,
+//                          child: FlatButton(
+//                              color: Colors.lightBlueAccent,
+//                              onPressed: () {},
+//                              child: Text(
+//                                'Add to fav',
+//                                style: TextStyle(color: Colors.white),
+//                              )),
+//                        ),
+//                        SizedBox(
+//                          width: 4,
+//                        ),
+//                        Expanded(
+//                          flex: 3,
+//                          child: ButtonTheme(
+//                            height: 55,
+//                            child: FlatButton(
+//                                color: Colors.redAccent,
+//                                onPressed: () {},
+//                                child: Text(
+//                                  'Remove',
+//                                  style: TextStyle(color: Colors.white),
+//                                )),
+//                          ),
+//                        )
+//                      ],
+//                    ),
+//                  )
+//                ],
+//              ),
+//            ),
+//          );
+//        });
+//  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _newTaskModalBottomSheet(context);
+
       },
       child: Container(
         margin: EdgeInsets.all(2),

@@ -1,38 +1,38 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
+  final EdgeInsets margin;
 
-  EdgeInsets padding;
-
-
-  SearchBar({this.padding = const EdgeInsets.only(
-      left: 22, right: 22, top: 30, bottom: 30)});
+  SearchBar({this.margin = const EdgeInsets.all(8)});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        margin: this.padding,
-        height: 60,
+        margin: margin,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(4),
             boxShadow: [
               BoxShadow(
-                  color:Theme.of(context).textTheme.title.color.withOpacity(.4),
+                  color:
+                      Theme.of(context).textTheme.title.color.withOpacity(.4),
                   blurRadius: 10,
                   offset: Offset(5, 5))
             ]),
         child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Search....',
-                  hintStyle: TextStyle(fontSize: 18, fontFamily: 'Raleway'),
-                  suffixIcon: Icon(Icons.search)),
-            ),
+          child: TextField(
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(left: 8,top: 8),
+                border: InputBorder.none,
+                hintText: 'Search....',
+                hintStyle: TextStyle(
+                    fontSize: Constants.screenAwareSize(14, context),
+                    fontFamily: 'Raleway'),
+                suffixIcon: Icon(
+                  Icons.search,
+                  size: Constants.screenAwareSize(22, context),
+                )),
           ),
         ));
   }

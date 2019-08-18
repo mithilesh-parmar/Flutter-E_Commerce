@@ -1,3 +1,4 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomButtonView extends StatelessWidget {
@@ -9,57 +10,53 @@ class BottomButtonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 4.0, right: 4),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: GestureDetector(
-                onTap: onWishlistClicked,
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      border: Border.all(color: Theme.of(context).accentColor)),
-                  child: Center(
-                      child: Text(
-                        'WishList'.toUpperCase(),
-                        style: TextStyle(
-                          fontFamily: 'Raleway',
-                        ),
-                      )),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-              height: 60,
+    return Container(
+      color: Theme.of(context).primaryColor,
+      padding: EdgeInsets.all(2),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: onWishlistClicked,
               child: Container(
-                color: Theme.of(context).backgroundColor,
+                height: Constants.screenAwareSize(40, context),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    border: Border.all(color: Theme.of(context).accentColor)),
+                child: Center(
+                    child: Text(
+                  'WISHLIST',
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 14,
+                  ),
+                )),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: GestureDetector(
-                onTap: onCartClicked,
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                  ),
-
-                  child: Center(
-                      child: Text(
-                        'Add to cart'.toUpperCase(),
-                        style:
-                        TextStyle(fontFamily: 'Raleway', color: Colors.white),
-                      )),
+          ),
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: onCartClicked,
+              child: Container(
+                margin: EdgeInsets.all(2),
+                height: Constants.screenAwareSize(40, context),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
                 ),
+                child: Center(
+                    child: Text(
+                  'ADD TO CART',
+                  style: TextStyle(
+                      fontFamily: 'Raleway', color: Colors.white, fontSize: 14),
+                )),
               ),
-            )
-          ],
-        ));
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -14,10 +15,10 @@ class OffersBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-
       autoPlay: true,
       pauseAutoPlayOnTouch: Duration(seconds: 1),
-      viewportFraction: 0.94,
+      viewportFraction: 0.9,
+      aspectRatio: 1,
       enlargeCenterPage: true,
       items: imageList.map((url) {
         return Builder(
