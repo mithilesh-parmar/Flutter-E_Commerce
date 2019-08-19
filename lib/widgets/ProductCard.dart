@@ -5,6 +5,7 @@ import 'package:e_commerce/screens/Detail_Page.dart';
 
 //import 'package:e_commerce/model/Product.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductDisplayCard extends StatelessWidget {
   final Function onPressed;

@@ -100,7 +100,7 @@ class _DetailPageState extends State<DetailPage> {
                             softWrap: true,
                             overflow: TextOverflow.fade,
                             style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 23,
                               fontFamily: 'Raleway',
                               fontWeight: FontWeight.bold,
                             ),
@@ -123,7 +123,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 18.0),
                       child: Text(
                         "\$${widget._product.price}",
                         style: TextStyle(

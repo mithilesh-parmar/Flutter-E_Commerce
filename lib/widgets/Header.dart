@@ -14,9 +14,7 @@ class HeaderWidget extends StatelessWidget {
       children: <Widget>[
         Text(
           heading,
-          style: TextStyle(
-              fontSize: Constants.screenAwareSize(23, context),
-              fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
         ),
         Spacer(),
         FlatButton.icon(
@@ -24,9 +22,7 @@ class HeaderWidget extends StatelessWidget {
             icon: Icon(icon),
             label: Text(
               iconText,
-              style: TextStyle(
-                  fontFamily: 'Raleway',
-                  fontSize: Constants.screenAwareSize(14, context)),
+              style: TextStyle(fontFamily: 'Raleway', fontSize: 14),
             ))
       ],
     );

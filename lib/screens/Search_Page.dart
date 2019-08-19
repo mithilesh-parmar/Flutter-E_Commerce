@@ -33,33 +33,48 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _categories,
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              // TODO: Handle this case.
-              break;
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ConnectionState.active:
-              // TODO: Handle this case.
-              break;
-            case ConnectionState.done:
-              if (snapshot.hasError)
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              return ListView.builder(
-                  itemCount: snapshot.data.length + 1,
-                  itemBuilder: (context, pos) {
-                    if (pos == 0) return SearchBar();
-                    return CategoryBanner(snapshot.data[pos - 1]);
-                  });
-          }
-        });
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          floating: true,
+          snap: true,
+          bottom:
+              PreferredSize(child: SearchBar(), preferredSize: Size(70, 20)),
+          expandedHeight: Constants.screenAwareSize(45, context),
+        ),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          FutureBuilder(
+              future: _categories,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    // TODO: Handle this case.
+                    break;
+                  case ConnectionState.waiting:
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.active:
+                    // TODO: Handle this case.
+                    break;
+                  case ConnectionState.done:
+                    if (snapshot.hasError)
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, pos) {
+                          return CategoryBanner(snapshot.data[pos]);
+                        });
+                }
+              })
+        ]))
+      ],
+    );
   }
 }
 

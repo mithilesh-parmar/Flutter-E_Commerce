@@ -49,14 +49,12 @@ class _HomePageState extends State<HomePage> {
       slivers: <Widget>[
         SliverAppBar(
             centerTitle: false,
-            expandedHeight: Constants.screenAwareSize(280, context),
-            flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                background: OffersBanner())),
+            expandedHeight: Constants.screenAwareSize(180, context),
+            flexibleSpace: FlexibleSpaceBar(background: OffersBanner())),
         SliverList(
             delegate: SliverChildListDelegate([
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 10),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: HeaderWidget(
               heading: 'Trending',
               iconText: 'See all',

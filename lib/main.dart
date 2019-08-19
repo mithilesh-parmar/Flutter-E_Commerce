@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             ),
             Center(
                 child: IconButton(
-                    icon: Icon(Icons.bubble_chart),
+                    icon: Icon(Icons.lightbulb_outline),
                     onPressed: () {
                       setState(() {
                         isDark = !isDark;
@@ -89,7 +89,6 @@ class _MyAppState extends State<MyApp> {
         key: _scaffoldKey,
         body: _selectedScreen,
         bottomNavigationBar: BottomNavigationBar(
-
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

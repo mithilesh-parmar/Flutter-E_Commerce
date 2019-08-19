@@ -23,7 +23,7 @@ class SearchBar extends StatelessWidget {
         child: Center(
           child: TextField(
             decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 8,top: 8),
+                contentPadding: EdgeInsets.only(left: 8, top: 8),
                 border: InputBorder.none,
                 hintText: 'Search....',
                 hintStyle: TextStyle(

@@ -43,7 +43,7 @@ class _AttributesViewState extends State<AttributesView> {
                 Text(
                   widget.title,
                   style: TextStyle(
-                      fontSize: Constants.screenAwareSize(16, context),
+                      fontSize: 16,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.bold),
                 ),
@@ -52,7 +52,7 @@ class _AttributesViewState extends State<AttributesView> {
                   widget.subtitle.toUpperCase(),
                   style: TextStyle(
                       fontFamily: 'Raleway',
-                      fontSize: Constants.screenAwareSize(12, context),
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Theme.of(context).accentColor),
                 ),
@@ -62,7 +62,7 @@ class _AttributesViewState extends State<AttributesView> {
               height: Constants.screenAwareSize(10, context),
             ),
             Container(
-                height: Constants.screenAwareSize(widget.height, context),
+                height: widget.height,
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                     itemCount: widget.attributes.length, //values.length,
