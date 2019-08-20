@@ -7,7 +7,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:e_commerce/widgets/OffersBanner.dart';
 import 'package:e_commerce/util/repo.dart';
 import 'package:e_commerce/widgets/ProductCard.dart';
-import 'package:e_commerce/screens/Detail_Page.dart';
+import 'package:provider/provider.dart';
+import 'package:e_commerce/states/cart_state.dart';
 import 'package:e_commerce/widgets/ImagePreview.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:e_commerce/util/constants.dart';
@@ -42,6 +43,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final CartState cartState = Provider.of<CartState>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,14 +56,12 @@ class _DetailPageState extends State<DetailPage> {
               icon: Icon(
                 Icons.share,
                 color: Theme.of(context).textTheme.title.color,
-//                size: Constants.screenAwareSize(20, context),
               ),
               onPressed: () {}),
           IconButton(
               icon: Icon(
                 isFavourite ? Icons.favorite : Icons.favorite_border,
                 color: Theme.of(context).textTheme.title.color,
-//                size: Constants.screenAwareSize(20, context),
               ),
               onPressed: () {
                 setState(() {
@@ -155,9 +155,7 @@ class _DetailPageState extends State<DetailPage> {
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
                     "PRODUCT DETAILS",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -184,9 +182,8 @@ class _DetailPageState extends State<DetailPage> {
                     onTap: _expand,
                     child: Text(
                       isExpanded ? "HIDE" : "SHOW",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                     ),
                   ),
                 ),
@@ -263,7 +260,7 @@ class _DetailPageState extends State<DetailPage> {
                     style: TextStyle(
                         fontFamily: 'Raleway',
                         fontWeight: FontWeight.bold,
-                        fontSize:16),
+                        fontSize: 16),
                   ),
                 ),
                 Padding(
@@ -283,9 +280,7 @@ class _DetailPageState extends State<DetailPage> {
                                     child: Text(
                                       'MORE IN ${widget._product.categories[pos].name}',
                                       style: TextStyle(
-                                          fontFamily: 'Raleway',
-                                          fontSize:
-                                              14),
+                                          fontFamily: 'Raleway', fontSize: 14),
                                     ),
                                   ),
                                   Spacer(),
@@ -317,7 +312,11 @@ class _DetailPageState extends State<DetailPage> {
                 right: 0,
                 bottom: 0,
                 child: BottomButtonView(
-                    onWishlistClicked: () {}, onCartClicked: () {})),
+                  onWishlistClicked: () {},
+                  onCartClicked: () {
+                    cartState.addProduct(widget._product);
+                  },
+                )),
           ],
         ),
       ),

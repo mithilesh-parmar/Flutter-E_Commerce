@@ -5,8 +5,10 @@ class BottomButtonView extends StatelessWidget {
   final Function onWishlistClicked;
   final Function onCartClicked;
 
-  BottomButtonView(
-      {@required this.onWishlistClicked, @required this.onCartClicked});
+  BottomButtonView({
+    @required this.onWishlistClicked,
+    @required this.onCartClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,41 +20,25 @@ class BottomButtonView extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 1,
-            child: GestureDetector(
-              onTap: onWishlistClicked,
-              child: Container(
-                height: Constants.screenAwareSize(40, context),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    border: Border.all(color: Theme.of(context).accentColor)),
-                child: Center(
-                    child: Text(
-                  'WISHLIST',
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontSize: 14,
-                  ),
-                )),
-              ),
-            ),
+            child: ButtonTheme(
+                height: Constants.screenAwareSize(35, context),
+                child: FlatButton(
+                    onPressed: onWishlistClicked, child: Text('WISHLIST'))),
           ),
           Expanded(
             flex: 2,
-            child: GestureDetector(
-              onTap: onCartClicked,
-              child: Container(
-                margin: EdgeInsets.all(2),
-                height: Constants.screenAwareSize(40, context),
-                decoration: BoxDecoration(
+            child: ButtonTheme(
+              height: Constants.screenAwareSize(35, context),
+              child: FlatButton(
                   color: Theme.of(context).accentColor,
-                ),
-                child: Center(
-                    child: Text(
-                  'ADD TO CART',
-                  style: TextStyle(
-                      fontFamily: 'Raleway', color: Colors.white, fontSize: 14),
-                )),
-              ),
+                  onPressed: onCartClicked,
+                  child: Text(
+                    'ADD TO CART',
+                    style: TextStyle(
+                        fontFamily: 'Raleway',
+                        color: Colors.white,
+                        fontSize: 14),
+                  )),
             ),
           )
         ],

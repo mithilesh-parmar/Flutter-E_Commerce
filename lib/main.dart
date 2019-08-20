@@ -1,4 +1,8 @@
 import 'package:e_commerce/screens/home.dart';
+import 'package:e_commerce/states/cart_state.dart';
+import 'package:e_commerce/states/theme_changer.dart';
+
+//import 'package:e_commerce/states/app_state.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:e_commerce/widgets/badge.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +13,26 @@ import 'screens/Profile_page.dart';
 import 'screens/Detail_Page.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MaterialApp(
-      home: MyApp(),
-      initialRoute: MyApp.id,
-      routes: {
-        MyApp.id: (context) => MyApp(),
-      },
-      debugShowCheckedModeBanner: false,
-    ));
+void main() => runApp(MainPage());
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          builder: (_) => ThemeChanger(Constants.lightTheme, false),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => CartState(),
+        )
+      ],
+      child: MyApp(),
+    );
+  }
+}
 
 class MyApp extends StatefulWidget {
   static String id = "MyApp";
@@ -64,27 +79,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
     return MaterialApp(
+      theme: themeChanger.getTheme(),
       debugShowCheckedModeBanner: false,
-      theme: isDark ? Constants.darkTheme : Constants.lightTheme,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('E-Commerce'),
-          actions: <Widget>[
-            Center(
-              child: IconBadge(
-                icon: Feather.getIconData("shopping-cart"),
-              ),
-            ),
-            Center(
-                child: IconButton(
-                    icon: Icon(Icons.lightbulb_outline),
-                    onPressed: () {
-                      setState(() {
-                        isDark = !isDark;
-                      });
-                    })),
-          ],
+          backgroundColor: Colors.transparent,
+          title: Text(
+            'E-Commerce',
+            style: TextStyle(
+                fontFamily: 'Raleway',
+                fontSize: 35,
+                fontWeight: FontWeight.bold),
+          ),
+          centerTitle: false,
         ),
         key: _scaffoldKey,
         body: _selectedScreen,
@@ -105,9 +114,7 @@ class _MyAppState extends State<MyApp> {
               title: Text('Search'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart,
-              ),
+              icon: Icon(Icons.shopping_cart),
               title: Text('Cart'),
             ),
             BottomNavigationBarItem(
