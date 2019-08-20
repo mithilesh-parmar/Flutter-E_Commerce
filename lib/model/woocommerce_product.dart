@@ -58,6 +58,14 @@ class Product {
       this.defaultAttributes,
       this.stockStatus});
 
+  List<String> getOptions() {
+    List<String> options = List();
+    attributes[0].options.map((value){
+      options.add(value);
+    });
+    return options;
+  }
+
   factory Product.fromJSON(Map<String, dynamic> parsedJson) {
     return new Product(
       id: parsedJson['id'],

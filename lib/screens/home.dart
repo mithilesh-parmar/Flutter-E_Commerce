@@ -48,7 +48,6 @@ class _HomePageState extends State<HomePage> {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-            centerTitle: false,
             expandedHeight: Constants.screenAwareSize(180, context),
             flexibleSpace: FlexibleSpaceBar(background: OffersBanner())),
         SliverList(

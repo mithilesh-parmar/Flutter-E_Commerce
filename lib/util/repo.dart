@@ -21,6 +21,20 @@ class Repository {
   static final CONSUMER_SECRET_CLOUD =
       'cs_998324c7091df9dd256117dcf6105865f155de78';
 
+  test() async {
+    List<Product> products = await getProducts();
+    print(products.length);
+    products.forEach((product) {
+      if (product.attributes.length > 0) {
+        product.attributes.forEach((attribute) {
+          attribute.options.forEach((value) {
+            print(value);
+          });
+        });
+      }
+    });
+  }
+
   Future<List<Product>> getProducts() async {
     if (products.length > 0) {
       return products;
