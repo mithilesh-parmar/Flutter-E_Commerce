@@ -30,6 +30,7 @@ dependencies:
   badges: ^1.1.0
   http: ^0.12.0+2
   flutter_icons: ^0.1.4
+  shimmer: ^1.0.0
   smooth_star_rating: 1.0.3
   provider: ^3.0.0+1
 

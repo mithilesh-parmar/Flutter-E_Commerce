@@ -1,5 +1,8 @@
 import 'package:e_commerce/screens/home.dart';
+import 'package:e_commerce/screens/home_page.dart';
 import 'package:e_commerce/states/cart_state.dart';
+import 'package:e_commerce/states/category_state.dart';
+import 'package:e_commerce/states/home_state.dart';
 import 'package:e_commerce/states/theme_changer.dart';
 
 //import 'package:e_commerce/states/app_state.dart';
@@ -27,6 +30,12 @@ class MainPage extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           builder: (_) => CartState(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => HomeState(),
+        ),
+        ChangeNotifierProvider(
+          builder: (_) => CategoryState(),
         )
       ],
       child: MyApp(),
@@ -47,7 +56,7 @@ class _MyAppState extends State<MyApp> {
   static SearchPage _categoryScreen = SearchPage();
   static ProfilePage _profileScreen = ProfilePage();
   static CartPage _cartScreen = CartPage();
-  bool isDark = false;
+
   Widget _selectedScreen = _homeScreen;
   List<dynamic> screens = [
     _homeScreen,

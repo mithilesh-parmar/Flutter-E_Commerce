@@ -21,33 +21,29 @@ class Repository {
   static final CONSUMER_SECRET_CLOUD =
       'cs_998324c7091df9dd256117dcf6105865f155de78';
 
-  test() async {
-    List<Product> products = await getProducts();
-    print(products.length);
-    products.forEach((product) {
-      if (product.attributes.length > 0) {
-        product.attributes.forEach((attribute) {
-          attribute.options.forEach((value) {
-            print(value);
-          });
-        });
-      }
-    });
-  }
+//  Future<List<Product>> getProducts() async {
+//    if (products.length > 0) {
+//      return products;
+//    }
+//    print('contacting servers');
+//    Response r = await get('${URL_CLOUD}products',
+//        headers: {'Authorization': auth_cloud});
+//    if (r.statusCode != 200) return null;
+//    products = (json.decode(r.body) as List)
+//        .map((value) => Product.fromJSON(value))
+//        .toList();
+//    return products;
+//  }
 
-  Future<List<Product>> getProducts() async {
-    if (products.length > 0) {
-      return products;
-    }
-    print('contacting servers');
-    Response r = await get('${URL_CLOUD}products',
-        headers: {'Authorization': auth_cloud});
-    debugPrint('${r.statusCode}');
-    products = (json.decode(r.body) as List)
-        .map((value) => Product.fromJSON(value))
-        .toList();
-    return products;
-  }
+  fetchProductsData() async =>
+      await get('${URL_CLOUD}products', headers: {'Authorization': auth_cloud});
+
+  fetchCategoryData() async => await get('${URL_CLOUD}products/categories',
+      headers: {'Authorization': auth_cloud});
+
+  fetchProductsForCategory(String categoryId) async =>
+      await get('${URL_CLOUD}products?category=$categoryId',
+          headers: {'Authorization': auth_cloud});
 
   Future<List<Product>> getProductForCategory(String categoryId) async {
     List<Product> categoryProducts = List();
@@ -61,22 +57,22 @@ class Repository {
     return categoryProducts;
   }
 
-  Future<List<ProductCategory.Category>> getCategories() async {
-    print('fetching categories.....');
-    if (categories.length > 0) {
-      print('returning cached categories');
-      return categories;
-    }
-    print('requesting cloud');
-    Response r = await get('${URL_CLOUD}products/categories',
-        headers: {'Authorization': auth_cloud});
-
-    print(r.statusCode);
-    categories = (json.decode(r.body) as List)
-        .map((value) => ProductCategory.Category.fromJSON(value))
-        .toList();
-    return categories;
-  }
+//  Future<List<ProductCategory.Category>> getCategories() async {
+//    print('fetching categories.....');
+//    if (categories.length > 0) {
+//      print('returning cached categories');
+//      return categories;
+//    }
+//    print('requesting cloud');
+//    Response r = await get('${URL_CLOUD}products/categories',
+//        headers: {'Authorization': auth_cloud});
+//
+//    print(r.statusCode);
+//    categories = (json.decode(r.body) as List)
+//        .map((value) => ProductCategory.Category.fromJSON(value))
+//        .toList();
+//    return categories;
+//  }
 
   Future<List<Product>> getRelatedProductsFor(Product product) async {
     List relatedIds = product.relatedIds;
@@ -87,7 +83,7 @@ class Repository {
       debugPrint('${r.statusCode}');
       relatedProducts.add(Product.fromJSON(json.decode(r.body)));
     }
-//    debugPrint("returning: $relatedProducts");
+
     return relatedProducts;
   }
 }
