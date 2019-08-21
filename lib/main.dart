@@ -10,6 +10,7 @@ import 'package:e_commerce/util/constants.dart';
 import 'package:e_commerce/widgets/badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shimmer/shimmer.dart';
 import 'screens/Search_Page.dart';
 import 'screens/Cart_Page.dart';
 import 'screens/Profile_page.dart';

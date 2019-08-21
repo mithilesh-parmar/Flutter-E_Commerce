@@ -1,5 +1,6 @@
 import 'package:e_commerce/states/productlist_state.dart';
 import 'package:e_commerce/util/constants.dart';
+import 'package:e_commerce/widgets/ShimmerGrid.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/screens/Detail_Page.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
@@ -121,9 +122,7 @@ class ProductListPage extends StatelessWidget {
                   delegate: SliverChildListDelegate([
                 Consumer<ProductListState>(
                   builder: (context, state, child) => state.isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
+                      ?ShimmerGrid()
                       : GridView.builder(
                           itemCount: state.products.length,
                           physics: NeverScrollableScrollPhysics(),

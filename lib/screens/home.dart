@@ -1,5 +1,7 @@
 import 'package:e_commerce/states/home_state.dart';
 import 'package:e_commerce/util/constants.dart';
+import 'package:e_commerce/widgets/LoadingView.dart';
+import 'package:e_commerce/widgets/ShimmerGrid.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/OffersBanner.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
@@ -35,17 +37,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           homeState.isLoading
-              ? Container(
-                  child: Center(
-                    child: Shimmer.fromColors(
-                        child: Text(
-                          'Loading',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                        baseColor: Theme.of(context).textTheme.title.color,
-                        highlightColor: Theme.of(context).accentColor),
-                  ),
-                )
+              ? ShimmerGrid()
               : GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),

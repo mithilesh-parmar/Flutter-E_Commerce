@@ -1,6 +1,7 @@
 import 'package:e_commerce/states/category_state.dart';
 
 import 'package:e_commerce/util/constants.dart';
+import 'package:e_commerce/widgets/ShimmerList.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/widgets/SearchBar.dart';
 import 'package:e_commerce/screens/ProductList_Page.dart';
@@ -25,13 +26,15 @@ class SearchPage extends StatelessWidget {
         ),
         SliverList(
             delegate: SliverChildListDelegate([
-          ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: categoryState.categories.length,
-              itemBuilder: (context, pos) {
-                return CategoryBanner(categoryState.categories[pos]);
-              })
+          categoryState.isLoading
+              ? ShimmerList()
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: categoryState.categories.length,
+                  itemBuilder: (context, pos) {
+                    return CategoryBanner(categoryState.categories[pos]);
+                  })
         ]))
       ],
     );

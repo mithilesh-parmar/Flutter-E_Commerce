@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce/states/detail_state.dart';
 import 'package:e_commerce/widgets/AttributesCard.dart';
 import 'package:e_commerce/widgets/BottomButton.dart';
+import 'package:e_commerce/widgets/ShimmerList.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/model/woocommerce_product.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -212,9 +213,7 @@ class _DetailPageState extends State<DetailPage> {
                     padding: EdgeInsets.only(left: 8, right: 8),
                     child: Consumer<DetailState>(
                       builder: (context, state, child) => state.isLoading
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
+                          ? ShimmerList(direction: Axis.horizontal,)
                           : ListView.builder(
                               shrinkWrap: true,
                               itemCount: state.products.length,
